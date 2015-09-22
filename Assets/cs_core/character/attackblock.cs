@@ -19,12 +19,12 @@ public class attackblock : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space)&&!Input.GetKey(KeyCode.LeftShift))
         {
             anim.SetTrigger("Attack");
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             anim.SetBool("Block", true);
         }
