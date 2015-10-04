@@ -7,9 +7,24 @@ public class MainMenuNav : MonoBehaviour {
 	void Start () {
 	
 	}
-	
-	// Update is called once per frame
-	void Update () {
+    public void StartTheGame()
+    {
+        Application.LoadLevel(2);
+    }
+    public void OptionsMenu()
+    {
+        Application.LoadLevel(1);
+    }
+    public void MainMenu()
+    {
+        Application.LoadLevel(0);
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+    // Update is called once per frame
+    void Update () {
 	
 	}
 }
