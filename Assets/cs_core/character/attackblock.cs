@@ -30,5 +30,43 @@ public class attackblock : MonoBehaviour {
         }
         else
             anim.SetBool("Block", false);
-	}
+
+        //Ability keys
+
+        if (Input.GetKey(KeyCode.R))
+        {
+
+        }
+
+        if (Input.GetKey(KeyCode.F))
+        {
+
+        }
+
+        if (Input.GetKey(KeyCode.C))
+        {
+
+        }
+
+        //Select key
+
+        if (Input.GetKey(KeyCode.Tab))
+        {
+
+        }
+
+        //Interact key
+
+        if (Input.GetKey(KeyCode.E))
+        {
+
+        }
+
+        //Open inventory
+
+        if (Input.GetKey(KeyCode.I))
+        {
+
+        }
+    }
 }
