@@ -2,14 +2,23 @@
 using System.Collections;
 
 public class MainMenuNav : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+    public string stringToEdit;
+    // Use this for initialization
+    void Start () {
 	
 	}
     public void StartTheGame()
     {
+        GetPlayerInfo();
         Application.LoadLevel(2);
+    }
+    public void GetPlayerInfo()
+    {
+        //stringToEdit = "Hello World";
+        //private void OnGUI()
+        //{
+         //   stringToEdit = GUI.TextField(new Rect(10, 10, 200, 20), stringToEdit, 25);
+        //}
     }
     public void OptionsMenu()
     {
