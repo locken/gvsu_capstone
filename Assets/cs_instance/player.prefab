@@ -221,10 +221,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 137784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94bed04fdef9ed147af28e62113bd9de, type: 3}
+  m_Script: {fileID: 11500000, guid: 3de7f9a14219ded488e1427d5e8ed54c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 137784}
+  speed: 0
+  rot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &11463550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,11 +234,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 137784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89d9cf145a0be304f9081d648ffa4a07, type: 3}
+  m_Script: {fileID: 11500000, guid: bf49c38c0f637a8439a223d6c5ada3be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  rot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &11485914
 MonoBehaviour:
   m_ObjectHideFlags: 1
