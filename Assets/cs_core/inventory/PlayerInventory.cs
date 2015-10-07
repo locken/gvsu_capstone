@@ -17,11 +17,11 @@ public class PlayerInventory : MonoBehaviour {
 
     public void addItem(int itemId, int itemQuantity)
     {
-        for(int i=0; i < itemManager.items.count; i++)
+        for(int i=0; i < itemManager.items.Count; i++)
         {
-            if(itemManager.items[i].itemTransform.getComponent<Item>().id == itemId)
+            if(itemManager.items[i].itemTransform.GetComponent<Item>().itemID == itemId)
             {
-                playerItems itemsToAdd = new playerItems(itemManager.items[i].itemTransform.getComponent<Item>(), itemQuantity);
+                playerItems itemsToAdd = new playerItems(itemManager.items[i].itemTransform.GetComponent<Item>(), itemQuantity);
                 items.Add(itemsToAdd);
             }
         }
