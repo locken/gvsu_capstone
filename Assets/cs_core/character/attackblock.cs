@@ -5,11 +5,20 @@ public class attackblock : MonoBehaviour {
 
     Animator anim;
     Quaternion rot;
+	bool collided; 
+	Collider2D currentEnemy;
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy (other.gameObject);
+		collided = true;
+		currentEnemy = other;
     }
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		collided = false;
+		currentEnemy = other;
+	}
 
     // Use this for initialization
 	void Start () {
@@ -18,10 +27,19 @@ public class attackblock : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         if (Input.GetKeyDown(KeyCode.Space)&&!Input.GetKey(KeyCode.LeftShift))
         {
+			try{
             anim.SetTrigger("Attack");
+			//if (other.tag == "Enemy") {
+			if(collided){
+				AI_Attributes enemyAttributes = currentEnemy.gameObject.GetComponent<AI_Attributes>();
+				enemyAttributes.Health -= 10;
+				Debug.Log(currentEnemy.name + ": " + enemyAttributes.Health);
+				}
+			} catch(MissingReferenceException ex){
+
+			}
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
