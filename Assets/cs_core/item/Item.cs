@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Item : MonoBehaviour{
-    private float cooldown = 1.0f;
-    public string itemName;
-    public int itemID;
-    public string itemType;
+public enum itemTypes {weapon, armor, consumable, other};
 
+public abstract class Item : MonoBehaviour{
+    public int itemID;
+    public string itemName;
+    public itemTypes itemType;
+    public int minLevel;
+    public float cooldown;
+    
     public abstract void useItemAction();
 }

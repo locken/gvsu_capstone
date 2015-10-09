@@ -5,6 +5,9 @@ using System;
 //cooldown cooresponds to invincibility frames
 
 public class armorItem : Item {
+
+    public int durability;
+    
     public override void useItemAction()
     {
         throw new NotImplementedException();
