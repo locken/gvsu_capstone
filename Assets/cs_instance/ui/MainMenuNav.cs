@@ -7,33 +7,35 @@ public class MainMenuNav : MonoBehaviour {
     void Start () {
 	
 	}
-    public void StartTheGame()
+    
+    void OnGUI()
     {
-        GetPlayerInfo();
-        Application.LoadLevel(2);
+        if (GUI.Button(new Rect(185, 100, 80, 50), "Start New"))
+        {
+            print("Start clicked");
+            Application.LoadLevel(2);
+        }
+        if (GUI.Button(new Rect(185, 150, 80, 50), "Options"))
+        {
+            print("Start clicked");
+            Application.LoadLevel(1);
+        }
+        if (GUI.Button(new Rect(200, 200, 50, 50), "Exit"))
+        {
+            print("Start clicked");
+            Application.Quit();
+        }
     }
-    public void GetPlayerInfo()
-    {
-        //stringToEdit = "Hello World";
-        //private void OnGUI()
-        //{
-         //   stringToEdit = GUI.TextField(new Rect(10, 10, 200, 20), stringToEdit, 25);
-        //}
-    }
-    public void OptionsMenu()
-    {
-        Application.LoadLevel(1);
-    }
+
+
     public void MainMenu()
     {
         Application.LoadLevel(0);
     }
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
+
     // Update is called once per frame
-    void Update () {
-	
-	}
+    void Update()
+    {
+
+    }
 }
