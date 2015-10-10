@@ -67,12 +67,12 @@ public class Map: MonoBehaviour {
         mapSprites = Resources.LoadAll("map");
         ground = new GameObject();
 
-        length = 16;
-        height = 6;
+        //length = 16;
+        //height = 6;
 
         GameObject rock = new GameObject();
         SpriteRenderer rockSprite = rock.AddComponent<SpriteRenderer>();
-        rockSprite.sprite = (Sprite)mapSprites[7];
+        rockSprite.sprite = (Sprite)mapSprites[17];
         BoxCollider2D rockBody = rock.AddComponent<BoxCollider2D>();
 
 
@@ -83,13 +83,15 @@ public class Map: MonoBehaviour {
         float tileLength = groundSprite.bounds.size.x;
         float tileWidth = groundSprite.bounds.size.y;
 
-        ground.transform.position = new Vector3(-length/2, -height/2 - 0.5f, 0);
+        //ground.transform.position = new Vector3(-length/2, -height/2 - 0.5f, 0);
         
         //our "random" seed heh
-        seed = 69;
+        seed = System.DateTime.Now.Second;
         Random.seed = seed;
-        //length = Random.Range(15, 25);
-        //height = Random.Range(20, 30);
+        
+        height = Random.Range(10,30);
+        length = Random.Range(10, 30);
+        ground.transform.position = new Vector3(-length / 2, -height / 2 - 0.5f, 0);
 
 
         //roomWalls = new Walls(length, height, -10);
@@ -97,7 +99,8 @@ public class Map: MonoBehaviour {
         GameObject newGround;
         for (int i = 0; i <= height + 1; i++ )
         {
-            if(i > 0)
+            //createGround(ground);
+            if (i > 0)
             {
                newGround = (GameObject)Instantiate(tracked, new Vector3(ground.transform.position.x, ground.transform.position.y+ i), Quaternion.identity);
                 tracked = newGround;
@@ -105,7 +108,9 @@ public class Map: MonoBehaviour {
 
             for (int j = 1; j <= length; j++)
             {
+                //createGround(newGround);
                 newGround = (GameObject)Instantiate(tracked, tracked.transform.position + Vector3.right, Quaternion.identity);
+                createGround(newGround);
                 tracked = newGround;
             }
             
@@ -116,13 +121,24 @@ public class Map: MonoBehaviour {
 
     SpriteRenderer createGround(GameObject ground)
     {
-        SpriteRenderer groundSprite = ground.AddComponent<SpriteRenderer>();
-
-        groundSprite.sprite = (Sprite)mapSprites[3];
-
+        SpriteRenderer groundSprite = ground.GetComponent<SpriteRenderer>();
+        if (groundSprite == null)
+        {
+            groundSprite = ground.AddComponent<SpriteRenderer>();
+        }
+        groundSprite.sprite = (Sprite)mapSprites[GetFloorNum()];
+        //int temp = GetFloorNum();
         return groundSprite;
     }
-
+    int GetFloorNum()
+    {
+        int temp = 2;
+        while (temp % 2 == 0) {
+            temp = Random.Range(3, 15);
+        }
+        Debug.Log(temp);
+        return temp;
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -115,11 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695f3c0c97da5f84f8aa865bdc3f5df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  rot: {x: 0, y: 0, z: 0, w: 0}
-  x: 0
-  y: 0
-  now: 0
 --- !u!61 &13953925
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -176,7 +171,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 93b5543824bf7ad43b0d6edcf071bd34, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d06047822cdc664f93fb0581c32ebc5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &13953928
 Transform:
@@ -361,11 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695f3c0c97da5f84f8aa865bdc3f5df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  rot: {x: 0, y: 0, z: 0, w: 0}
-  x: 0
-  y: 0
-  now: 0
 --- !u!61 &1184731688
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -422,7 +412,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 93b5543824bf7ad43b0d6edcf071bd34, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d06047822cdc664f93fb0581c32ebc5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1477680949
 GameObject:
@@ -454,11 +444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695f3c0c97da5f84f8aa865bdc3f5df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  rot: {x: 0, y: 0, z: 0, w: 0}
-  x: 0
-  y: 0
-  now: 0
 --- !u!61 &1477680951
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -515,7 +500,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 93b5543824bf7ad43b0d6edcf071bd34, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d06047822cdc664f93fb0581c32ebc5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1477680954
 Transform:
@@ -542,7 +527,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 496142, guid: b5e0f2c699db41840b2e95efe210fc42, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.03999996
+      value: -2.17000008
       objectReference: {fileID: 0}
     - target: {fileID: 496142, guid: b5e0f2c699db41840b2e95efe210fc42, type: 2}
       propertyPath: m_LocalPosition.y
