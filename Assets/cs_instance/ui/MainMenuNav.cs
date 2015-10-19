@@ -13,7 +13,7 @@ public class MainMenuNav : MonoBehaviour {
         if (GUI.Button(new Rect(185, 100, 80, 50), "Start New"))
         {
             print("Start clicked");
-            Application.LoadLevel(2);
+            Application.LoadLevel(3);
         }
         if (GUI.Button(new Rect(185, 150, 80, 50), "Options"))
         {
