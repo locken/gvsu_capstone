@@ -24,7 +24,7 @@ public abstract class Item : MonoBehaviour{
         //creates and adds a new sprite renderer to 'this' G.O.
         SpriteRenderer sr = gameObject.AddComponent<SpriteRenderer>();
         //set sprite = to Resources/item/itemType/spriteName
-        sr.sprite = (Sprite)Resources.Load("item/" + itemType + "/" + spriteName);
+        sr.sprite = (Sprite)Resources.Load("item/" + itemType + "/" + spriteName + ".png");
         //return the SpriteRenderer
         return sr;
     }
