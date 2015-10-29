@@ -3,37 +3,70 @@ using System.Collections;
 
 public class player : MonoBehaviour {
 
+    //player variables
     public GameObject plyr;
-    public GameObject plyrwpn;
-    private weaponItem wpnitem;
-    private SpriteRenderer wpn;
+    public SpriteRenderer playerSprite;
+    public BoxCollider2D playerCollider;
+
+    //right hand variables
+    public GameObject rightHand;
+    public Item rightHandItem;
+    public SpriteRenderer rightSr;
+    public BoxCollider2D rightBc;
+
+    /*//left hand variables
+    public GameObject leftHand;
+    public Item leftHandItem;
+    public SpriteRenderer leftSr;
+    public BoxCollider2D leftBc;*/
+
+    //array used to keep track of objects hit during one swing
+    public ArrayList enemiesHit;
+
     private bool attack = false;
     private float wpnz = 0;
-    private SpriteRenderer playerSprite;
-    private BoxCollider2D playerBody;
+    private float wpnx = 18 / 24f;
+    
 
 	// Use this for initialization
 	void Start () {
+
+        //create player
         plyr = new GameObject();
+        plyr.name = "Player";
         plyr.AddComponent<Playable>();
         plyr.AddComponent<movement>();
         playerSprite = plyr.AddComponent<SpriteRenderer>();
         playerSprite.sprite = (Sprite)Resources.LoadAll("pc")[1];
-        playerBody = plyr.AddComponent<BoxCollider2D>();
-        plyr.AddComponent<weaponItem>();
-        plyr.GetComponent("weaponItem").transform.position = new Vector3(14 / 24, 12 / 24, 0);
+        playerCollider = plyr.AddComponent<BoxCollider2D>();
 
-        //add weapon to player
-        plyrwpn = new GameObject();
-        plyrwpn.name = "Player Weapon";
-        plyrwpn.transform.parent = plyr.transform;
-        wpnitem = plyrwpn.AddComponent<basic_sword>();
-        wpn = plyrwpn.AddComponent<SpriteRenderer>();
+        //add rightHand to player
+        rightHand = new GameObject();
+        rightHand.name = "Right Hand";
+        rightHand.transform.parent = plyr.transform;
+        rightHandItem = rightHand.AddComponent<basic_sword>();
+        rightSr = rightHand.AddComponent<SpriteRenderer>();
+        rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[1];
+        rightHand.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
+        rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
+        rightHand.SetActive(false);
+        rightBc = rightHand.AddComponent<BoxCollider2D>();
+        rightBc.isTrigger = true;
+
+        /*//add leftHand to player
+        rightHand = new GameObject();
+        rightHand.name = "Right Hand";
+        rightHand.transform.parent = plyr.transform;
+        handItem = rightHand.AddComponent<basic_sword>();
+        wpn = rightHand.AddComponent<SpriteRenderer>();
         wpn.sprite = (Sprite)Resources.LoadAll("item/weapon")[2];
-        plyrwpn.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
-        plyrwpn.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
-        plyrwpn.SetActive(false);
-        plyrwpn.AddComponent<BoxCollider2D>();
+        rightHand.transform.localPosition = new Vector3(-18 / 24f, 18 / 24f, 0);
+        rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
+        rightHand.SetActive(false);
+        rightHand.AddComponent<BoxCollider2D>();*/
+
+        //instantiate enemiesHit
+        enemiesHit = new ArrayList();
     }
 
     // Update is called once per frame
@@ -42,7 +75,7 @@ public class player : MonoBehaviour {
         if (Input.GetKey(KeyCode.Space))
         {
             attack = true;
-            plyrwpn.SetActive(true);
+            rightHand.SetActive(true);
         }
         /*might need to add bool attacked/damaged to enemy class.  use an array list in weapon object to hold all enemy gameobjects attacked, at end of attack cycle
         loop through list and set all enemy bools to false.  could fix multiple damage deductions from one attack cycle(enemy has health deducted base on x degrees, since
@@ -54,17 +87,27 @@ public class player : MonoBehaviour {
                 wpnz++;
                 for (int i = 0; i < 15; i++)
                 {
-                    plyrwpn.transform.Rotate(0, 0, 1);
+                    rightHand.transform.Rotate(0, 0, 1);
+                    wpnx = wpnx - ((2 / 3f) / 150f);
+                    rightHand.transform.localPosition = new Vector3(wpnx, 18/24f, 0f);
                 }
             }
             else
             {
                 wpnz = 0;
-                plyrwpn.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
+                rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
+                wpnx = 18 / 24f;
+                rightHand.transform.localPosition = new Vector3(wpnx, 18 / 24f, 0f);
                 attack = false;
-                plyrwpn.SetActive(false);
+                enemiesHit.Clear();
+                rightHand.SetActive(false);
             }
         }
+
+    }
+
+    void onTriggerEnter(Collider other)
+    {
 
     }
 }
