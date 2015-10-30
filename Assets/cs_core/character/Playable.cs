@@ -8,7 +8,8 @@ public class Playable : Character {
 	private int m_level, m_health, m_xp;
 	private float m_speed;
 	private string m_charName;
-
+    public string skill_name;
+    /*
 	public override int Level{
 		get{
 			return m_level;
@@ -52,12 +53,24 @@ public class Playable : Character {
 		set{
 			m_charName = value;
 		}
-	}
+	}*/
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		m_level = 1;
 		m_health = 100;
+
+        abilities = new ArrayList();
+        GameObject go = new GameObject();
+        Ability f = (Ability)go.AddComponent<Fireball>();// go.AddComponent<Fireball>();
+       
+        
+        //go.destroy();
+        abilities.Add(f);
+        Ability temp = (Ability)abilities[0];
+        temp.cast();
+        f.cast();
+    
 	}
 
 	// Update is called once per frame

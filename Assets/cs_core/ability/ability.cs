@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ability : MonoBehaviour {
+public abstract class Ability : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public string id;
+    //abstract float cooldown;
+    //abstract float castTime;
+    
+    //abstract bool isCasting();
+    public abstract bool cast();
+
+
+    void setCooldown()
+    {
+
+    }
 }
