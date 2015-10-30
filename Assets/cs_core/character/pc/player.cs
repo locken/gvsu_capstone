@@ -10,7 +10,7 @@ public class player : MonoBehaviour {
 
     //right hand variables
     public GameObject rightHand;
-    public Item rightHandItem;
+    public weaponItem rightHandItem;
     public SpriteRenderer rightSr;
     public BoxCollider2D rightBc;
 
@@ -20,8 +20,9 @@ public class player : MonoBehaviour {
     public SpriteRenderer leftSr;
     public BoxCollider2D leftBc;*/
 
-    //array used to keep track of objects hit during one swing
+    //used for hitting enemies
     public ArrayList enemiesHit;
+    public AI enemy;
 
     private bool attack = false;
     private float wpnz = 0;
@@ -46,7 +47,7 @@ public class player : MonoBehaviour {
         rightHand.transform.parent = plyr.transform;
         rightHandItem = rightHand.AddComponent<basic_sword>();
         rightSr = rightHand.AddComponent<SpriteRenderer>();
-        rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[1];
+        rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[2];
         rightHand.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
         rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
         rightHand.SetActive(false);
@@ -108,6 +109,14 @@ public class player : MonoBehaviour {
 
     void onTriggerEnter(Collider other)
     {
-
+        if (!enemiesHit.Contains(other.gameObject))
+        {
+            if (other.gameObject.tag == "Enemy")
+            {
+                enemy = (AI_Attributes) other.gameObject.GetComponent("AI_Attributes");
+                enemy.Health = enemy.Health - rightHandItem.weaponDamage;
+                enemiesHit.Add(other.gameObject);
+            }
+        }
     }
 }
