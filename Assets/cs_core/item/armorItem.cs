@@ -8,6 +8,12 @@ public class armorItem : Item {
 
     public int durability;
     
+    public armorItem()
+    {
+        this.itemType = itemTypes.armor;
+        durability = UnityEngine.Random.Range(1, 15);
+    }
+
     public override void useItemAction()
     {
         throw new NotImplementedException();

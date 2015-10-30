@@ -14,14 +14,80 @@ public class consumableItem : Item {
     public int healthModifier;
     public int magicModifier;
     //Implement all constructors for all types of weapons. 
-    public consumableItem()
+    public consumableItem(int consumableTypeNum)
     {
-        consumableType = consumableTypes.health_potion;
-        attackModifier = 0;
-        defenseModifier = 0;
-        healthModifier = 10;
-        magicModifier = 0;
         this.itemType = itemTypes.consumable;
+        if(consumableTypeNum == 0)
+        {
+            this.consumableType = consumableTypes.health_potion;
+            healthModifier = 10 * UnityEngine.Random.Range(1, 10);
+            magicModifier = 0;
+            attackModifier = 0;
+            defenseModifier = 0;
+        }
+        else if (consumableTypeNum == 1)
+        {
+            this.consumableType = consumableTypes.magic_potion;
+            magicModifier = 10 * UnityEngine.Random.Range(1, 10);
+            healthModifier = 0;
+            attackModifier = 0;
+            defenseModifier = 0;
+        }
+        else if (consumableTypeNum == 2)
+        {
+            this.consumableType = consumableTypes.stat_potion;
+            int statType = UnityEngine.Random.Range(1, 3);
+            if (statType == 1)
+            {
+                attackModifier = UnityEngine.Random.Range(1, 15);
+                defenseModifier = 0;
+            }
+            else if(statType == 2)
+            {
+                attackModifier = 0;
+                defenseModifier = UnityEngine.Random.Range(1, 15);
+            }
+            else
+            {
+                attackModifier = UnityEngine.Random.Range(1, 15);
+                defenseModifier = UnityEngine.Random.Range(1, 15);
+            }
+            healthModifier = 0;
+            magicModifier = 0;
+        }
+        else if (consumableTypeNum == 3)
+        {
+            this.consumableType = consumableTypes.food;
+            attackModifier = UnityEngine.Random.Range(1, 10);
+            defenseModifier = UnityEngine.Random.Range(1, 10);
+            healthModifier = UnityEngine.Random.Range(1, 10);
+            magicModifier = UnityEngine.Random.Range(1, 10);
+        }
+        else if (consumableTypeNum == 4)
+        {
+            this.consumableType = consumableTypes.ammunition;
+            attackModifier = 0;
+            defenseModifier = 0;
+            healthModifier = 0;
+            magicModifier = 0;
+        }
+        else if (consumableTypeNum == 5)
+        {
+            this.consumableType = consumableTypes.key;
+            attackModifier = 0;
+            defenseModifier = 0;
+            healthModifier = 0;
+            magicModifier = 0;
+        }
+        else
+        {
+            this.consumableType = consumableTypes.food;
+            attackModifier = -1;
+            defenseModifier = -1;
+            healthModifier = -1;
+            magicModifier = -1;
+        }
+        
     }
 
     public override void useItemAction()
