@@ -14,10 +14,11 @@ public class consumableItem : Item {
     public int healthModifier;
     public int magicModifier;
     //Implement all constructors for all types of weapons. 
-    public consumableItem(int consumableTypeNum)
+    public consumableItem()
     {
         this.itemType = itemTypes.consumable;
-        if(consumableTypeNum == 0)
+        int consumableTypeNum = UnityEngine.Random.Range(1, 5);
+        if (consumableTypeNum == 0)
         {
             this.consumableType = consumableTypes.health_potion;
             healthModifier = 10 * UnityEngine.Random.Range(1, 10);
@@ -71,7 +72,7 @@ public class consumableItem : Item {
             healthModifier = 0;
             magicModifier = 0;
         }
-        else if (consumableTypeNum == 5)
+        else
         {
             this.consumableType = consumableTypes.key;
             attackModifier = 0;
@@ -79,14 +80,7 @@ public class consumableItem : Item {
             healthModifier = 0;
             magicModifier = 0;
         }
-        else
-        {
-            this.consumableType = consumableTypes.food;
-            attackModifier = -1;
-            defenseModifier = -1;
-            healthModifier = -1;
-            magicModifier = -1;
-        }
+        
         
     }
 
