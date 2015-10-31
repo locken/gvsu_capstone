@@ -8,11 +8,7 @@ public class armorItem : Item {
 
     public int durability;
     
-    public armorItem()
-    {
-        this.itemType = itemTypes.armor;
-        durability = UnityEngine.Random.Range(1, 15);
-    }
+ 
 
     public override void useItemAction()
     {
@@ -21,7 +17,8 @@ public class armorItem : Item {
 
     // Use this for initialization
     void Start () {
-	
+		this.itemType = itemTypes.armor;
+		durability = UnityEngine.Random.Range(1, 15);
 	}
 	
 	// Update is called once per frame

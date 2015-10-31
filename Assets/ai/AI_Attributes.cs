@@ -8,7 +8,15 @@ public class AI_Attributes : AI {
 	private int m_level, m_health, m_xp;
 	private float m_speed;
 	private string m_charName;
-	
+	public bool Engaged{
+	    get{
+			return Engaged;
+		}
+	    set{
+			Engaged = value;
+		}
+	}
+
 	public override int Level{
 		get{
 			return m_level;

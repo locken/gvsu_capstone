@@ -16,12 +16,7 @@ public class weaponItem : Item {
     ***********************/
     
     public int weaponDamage;
-
-    public weaponItem()
-    {
-        this.itemType = itemTypes.weapon;
-        weaponDamage = UnityEngine.Random.Range(1, 15);
-    }
+	
 
     public override void useItemAction()
     {
@@ -32,7 +27,8 @@ public class weaponItem : Item {
 
     // Use this for initialization
     void Start () {
-	
+		this.itemType = itemTypes.weapon;
+		weaponDamage = UnityEngine.Random.Range(1, 15);
 	}
 	
 	// Update is called once per frame

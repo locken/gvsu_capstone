@@ -1,22 +1,58 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class FlockingAlgorithm : MonoBehaviour {
 	public float seperation;
 	public float alignnment; 
-	public float cohesion; 
+	public float cohesion;
 	public static bool collision;
 	public static float x;
 	public static float y;
-
+	public movements movementScript;
 	void Start()
 	{
 		CircleCollider2D collider = GetComponent<CircleCollider2D> ();
 		collider.radius = seperation;
+		//AI_Attributes.Engaged = false; 
+		collision = false;
+		movementScript = new movements ();
 	}
 
-	void OnTriggerEnter2D(Collider2D  other) {
-		movements.collision = true;
+	void OnCollisionEnter2D(Collision2D  other) {
+
+		try{
+			//anim.SetTrigger("Attack");
+			if (other != null && other.gameObject != null && other.gameObject.tag == "Enemy") {
+			    movementScript = other.gameObject.GetComponent<movements>();
+				movementScript.collision = true;
+				Collider2D collider = other.collider;
+				if(collider.name.Contains("Enemy"))
+				{ 
+					Debug.Log("IN YES");
+					Vector3 contactPoint = other.contacts[0].point;
+					Vector3 center = collider.bounds.center;					
+					movementScript.collisionRight = contactPoint.x > center.x;
+					movementScript.collisionUp = contactPoint.y > center.y;
+				}
+			}
+			if(other != null && other.gameObject != null && other.gameObject.tag == "Player")
+			{
+				AI_Attributes enemyAttributes = other.gameObject.GetComponent<AI_Attributes>();
+				movementScript.playerCollision = true;
+				GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+				
+				movementScript.collisionRight = this.transform.position.x > player.transform.position.x;
+				movementScript.collisionUp = this.transform.position.y > player.transform.position.y;
+				//enemyAttributes.Engaged = true;
+				//enemyAttributes.Health -= 10;
+				//if(enemyAttributes.Health <= 0){
+				//	Destroy(enemyAttributes.gameObject);
+				//}
+				//Debug.Log(other.name + ": " + enemyAttributes.Health);
+			}
+		}catch(MissingReferenceException ex){
+			
+		}
 		/*Vector2 enemyPosition = GetComponent<Rigidbody2D> ().position;
 		float x;
 		float y;
@@ -46,7 +82,8 @@ public class FlockingAlgorithm : MonoBehaviour {
 		}*/
 	}
 
-	void OnTriggerExit2D(Collider2D  other) {
-		movements.collision = false;
+	void OnCollisionExit2D(Collision2D  other) {
+		movementScript.collision = false;
+		Debug.Log ("Left: " + other.gameObject.tag);
 	}
 }
