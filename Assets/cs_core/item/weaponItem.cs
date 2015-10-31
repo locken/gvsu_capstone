@@ -17,6 +17,12 @@ public class weaponItem : Item {
     
     public int weaponDamage;
 
+    public weaponItem()
+    {
+        this.itemType = itemTypes.weapon;
+        weaponDamage = UnityEngine.Random.Range(1, 15);
+    }
+
     public override void useItemAction()
     {
         throw new NotImplementedException();
