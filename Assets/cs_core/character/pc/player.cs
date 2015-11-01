@@ -52,7 +52,7 @@ public class player : MonoBehaviour {
         rightHandItem = rightHand.AddComponent<basic_sword>();
         rightSr = rightHand.AddComponent<SpriteRenderer>();
 //<<<<<<< Updated upstream
-        rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[2];
+        rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
 //=======
         //rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
 //>>>>>>> Stashed changes

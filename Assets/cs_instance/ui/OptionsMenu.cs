@@ -13,6 +13,7 @@ public class OptionsMenu : MonoBehaviour {
 
     void OnGUI()
     {
+        GameObject localMusic = GameObject.Find("_MainMusic");
         if (GUI.Button(new Rect(200, 100, 80, 50), "Back"))
         {
             print("Back clicked");
@@ -36,14 +37,16 @@ public class OptionsMenu : MonoBehaviour {
             musicSlider = 0.0f;
             gameSoundSlider = 0.0f;
             resetOnce = false;
+            localMusic.GetComponent<MainMusic>().MuteMusic();
         } else if (!muteAll)
         {
             Debug.Log("uncheck Mute all clicked");
             if (!resetOnce)
             {
-                musicSlider = 2.0f;
-                gameSoundSlider = 2.0f;
+                musicSlider = 1.0f;
+                gameSoundSlider = 1.0f;
                 resetOnce = true;
+                localMusic.GetComponent<MainMusic>().UnmuteMusic();
             }
         }
     }
