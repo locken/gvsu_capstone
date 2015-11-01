@@ -41,6 +41,9 @@ public class player : MonoBehaviour {
         playerSprite.sprite = (Sprite)Resources.LoadAll("pc")[1];
         playerCollider = plyr.AddComponent<BoxCollider2D>();
         plyr.AddComponent<Rigidbody2D>();
+        GameObject localMaster = GameObject.Find("Main Camera");
+        localMaster.GetComponent<CameraMovement>().SetPlayer(plyr);
+        
 
         //add rightHand to player
         rightHand = new GameObject();

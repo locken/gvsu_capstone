@@ -8,6 +8,11 @@ public class CameraMovement : MonoBehaviour {
 	// Offset of the camera to the player
 	private Vector3 offset;
 
+    public void SetPlayer(GameObject p)
+    {
+        player = p;
+    }
+
 	// Use this for initialization
 	void Start () {
 		offset = transform.position;
