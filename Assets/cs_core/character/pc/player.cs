@@ -40,6 +40,7 @@ public class player : MonoBehaviour {
         playerSprite = plyr.AddComponent<SpriteRenderer>();
         playerSprite.sprite = (Sprite)Resources.LoadAll("pc")[1];
         playerCollider = plyr.AddComponent<BoxCollider2D>();
+        plyr.AddComponent<Rigidbody2D>();
 
         //add rightHand to player
         rightHand = new GameObject();
@@ -47,11 +48,11 @@ public class player : MonoBehaviour {
         rightHand.transform.parent = plyr.transform;
         rightHandItem = rightHand.AddComponent<basic_sword>();
         rightSr = rightHand.AddComponent<SpriteRenderer>();
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
         rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[2];
-=======
+//=======
         //rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
         rightHand.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
         rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
         rightHand.SetActive(false);

@@ -12,18 +12,18 @@ public class GenerateItems : MonoBehaviour {
         //Create base item and use Instantiate function for real new items then destroy the base. 
     void Start () {
         Random.seed = System.DateTime.UtcNow.Second;
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
         int itemsToGenerate = GetRandomNumItems();
         int[] usedX = new int[itemsToGenerate];
         int[] usedY = new int[itemsToGenerate];
         for (int i = 0; i < itemsToGenerate; i++)
         {
             string tempItemType = GetRandomItemType();
-            Object[] array = Resources.LoadAll("item/" + tempItemType);
+            //Object[] array = Resources.LoadAll("item/" + tempItemType);
             GameObject itemGenerate = new GameObject();
             SpriteRenderer itemGenerateSprite = itemGenerate.AddComponent<SpriteRenderer>();
             itemGenerate.name = "item" + i;
-            itemGenerateSprite.sprite = (Sprite)array[1];
+            //itemGenerateSprite.sprite = (Sprite)array[1];
             if(tempItemType == "weapon")
             {
                 itemGenerate.AddComponent<weaponItem>();
@@ -59,7 +59,7 @@ public class GenerateItems : MonoBehaviour {
             usedY[i] = newY;
             Destroy(itemGenerate);
         }
-=======
+//=======
         Object[] array = Resources.LoadAll("item/consumable");
 		Debug.Log ("Array Length: " + array[0]);
         GameObject item01 = new GameObject();
@@ -69,7 +69,7 @@ public class GenerateItems : MonoBehaviour {
         GameObject item02 = (GameObject)Instantiate(item01, new Vector3(3.0f, 4.0f), Quaternion.identity);
         Destroy(item01);
 
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
         //Based on random number of items, get % 3 item types, use those types for the two arrays of loadall from resources.  
     }
 	//based on the number of items do toString for item name.
