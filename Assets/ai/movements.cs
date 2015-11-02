@@ -16,6 +16,7 @@ public class movements : MonoBehaviour
 	public float FlockingSpeed;
 	public bool collisionRight;
 	public bool collisionUp;
+	public bool NotTouchingAi; 
 	// Use this for initialization
 	void Start ()
 	{
@@ -30,22 +31,21 @@ public class movements : MonoBehaviour
 		playerCollision = false;
 		collisionRight = false;
 		collisionUp = false;
+		NotTouchingAi = true;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		Debug.Log("AI Num: " + this.tag + "\nCollision \nRight: " + collisionRight + "\nLeft: " + collisionUp);
-		if (!collision || !playerCollision) {
+		if (!collision && !playerCollision) {
 			if (Time.time > now) {
 				x = Random.Range (-1, 2);
 				y = Random.Range (-1, 2);
 
 				now = Time.time + Random.Range (1.0f, 3.0f);
-				currentSpeed = 0;
+				//currentSpeed = 0;
 			}
-		} else if (collision) {
-			Debug.Log ("AI Num: " + this.tag + "\nCollision \nRight: " + collisionRight + "\nUp: " + collisionUp);
+		} else if (collision && NotTouchingAi) {
 			if (collisionRight) {
 				x = -1;
 			} else {
@@ -56,6 +56,7 @@ public class movements : MonoBehaviour
 			} else {
 				y = 1;
 			}
+			NotTouchingAi = false;
 		} else if (playerCollision) {
 			Debug.Log("PLAYER FOUND");
 			if (collisionRight) {
@@ -68,40 +69,43 @@ public class movements : MonoBehaviour
 			} else {
 				y = -1;
 			}
-
 		}
 
+		Vector2 positionVector = GetComponent<Rigidbody2D> ().position;
 		if (y > 0) {
 			rot = Quaternion.LookRotation (new Vector3 (0, 0, 0), Vector3.up);
-			if (currentSpeed < speed)
-				currentSpeed += .2f;
-			transform.Translate (0f, currentSpeed * Time.deltaTime, 0f, Space.World);
-		}
+			positionVector.y = 1f;
+
+			//transform.Translate (0f, currentSpeed * Time.deltaTime, 0f, Space.World);
+		} else 
 		if (y < 0) {
 			rot = Quaternion.LookRotation (new Vector3 (0, 0, 180), Vector3.down);
-			if (currentSpeed < speed)
-				currentSpeed += .2f;
-			transform.Translate (0f, -1 * currentSpeed * Time.deltaTime, 0f, Space.World);
+			positionVector.y = -1f;
+			//GetComponent<Rigidbody2D>().velocity = new Vector2(0, -1 * currentSpeed * Time.deltaTime);
+			//transform.Translate (0f, -1 * currentSpeed * Time.deltaTime, 0f, Space.World);
+		} else {
+			positionVector.y = 0f;
 		}
+
 		if (x > 0) {
 			rot = Quaternion.LookRotation (new Vector3 (0, 0, 90), Vector3.right);
-			if (currentSpeed < speed)
-				currentSpeed += .2f;
-			transform.Translate (currentSpeed * Time.deltaTime, 0f, 0f, Space.World);
-		}
+			positionVector.x = 1f;
+			//transform.Translate (currentSpeed * Time.deltaTime, 0f, 0f, Space.World);
+		} else
 		if (x < 0) {
 			rot = Quaternion.LookRotation (new Vector3 (0, 0, 270), Vector3.left);
-			if (currentSpeed < speed)
-				currentSpeed += .2f;
-			transform.Translate (-1 * currentSpeed * Time.deltaTime, 0f, 0f, Space.World);
+			positionVector.x = -1f;
+			//transform.Translate (-1 * currentSpeed * Time.deltaTime, 0f, 0f, Space.World);
+		} else {
+			positionVector.x = 0f;
 		}
+
+
 		transform.rotation = rot;
 		transform.eulerAngles = new Vector3 (0, 0, transform.eulerAngles.z);
-		GetComponent<Rigidbody2D> ().position = new Vector2
-			(
-				Mathf.Clamp (GetComponent<Rigidbody2D> ().position.x, -5.0f, 5.0f), 
-				Mathf.Clamp (GetComponent<Rigidbody2D> ().position.y, -5.0f, 5.0f)
-		);
+		Vector2 movementVector = new Vector2 (positionVector.x, positionVector.y);
+		GetComponent<Rigidbody2D> ().AddForce (movementVector * currentSpeed, ForceMode2D.Force);
+		//GetComponent<Rigidbody2D> ().MovePosition (transform.position + transform.forward * Time.deltaTime);
 	}
 	
 	public float GetSpeed()

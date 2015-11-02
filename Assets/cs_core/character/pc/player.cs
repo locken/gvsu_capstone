@@ -51,11 +51,7 @@ public class player : MonoBehaviour {
         rightHand.transform.parent = plyr.transform;
         rightHandItem = rightHand.AddComponent<basic_sword>();
         rightSr = rightHand.AddComponent<SpriteRenderer>();
-//<<<<<<< Updated upstream
-        rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
-//=======
-        //rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
-//>>>>>>> Stashed changes
+        rightSr.sprite = Resources.Load<Sprite>("item/weapon/");
         rightHand.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
         rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
         rightHand.SetActive(false);

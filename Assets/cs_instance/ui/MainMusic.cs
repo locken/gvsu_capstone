@@ -35,8 +35,8 @@ public class MainMusic : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //instance.addComponent()
-        themeMusic = (AudioClip) Resources.Load("audio/the_attack_is_on.mp3");
-        AudioSource.PlayClipAtPoint(themeMusic, transform.position, 0.8F);
+        //themeMusic = (AudioClip) Resources.Load("audio/the_attack_is_on.mp3");
+        //AudioSource.PlayClipAtPoint(themeMusic, transform.position, 0.8F);
         //musicSource.clip = themeMusic;
         //musicSource.Play();
     }

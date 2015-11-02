@@ -9,7 +9,7 @@ public class movement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         speed = 0;
-        maxspeed = 5;
+        maxspeed = 45;
         rot = Quaternion.LookRotation(new Vector3(0, 0, 0), Vector3.up);
         transform.rotation = rot;
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
@@ -34,34 +34,38 @@ public class movement : MonoBehaviour {
         {
             rot = Quaternion.LookRotation(new Vector3(0, 0, 270), Vector3.left);
         }
+		Vector2 movementVector = new Vector2();
         if (Input.GetKey(KeyCode.A))
         {
             if (speed < maxspeed)
-                speed += .2f;
-            transform.Translate(-1 * speed * Time.deltaTime,0f, 0f,Space.World);
+                speed += 1f;
+			movementVector.x = -1;
+
+            //transform.Translate(-1 * speed * Time.deltaTime,0f, 0f,Space.World);
         }
         if (Input.GetKey(KeyCode.D))
         {
             if (speed < maxspeed)
-                speed += .2f;
-            transform.Translate(speed*Time.deltaTime,0f, 0f,Space.World);
+                speed += 1f;
+			movementVector.x = 1;
         }
         if (Input.GetKey(KeyCode.W))
         {
             if (speed < maxspeed)
-                speed += .2f;
-            transform.Translate(0f, speed*Time.deltaTime, 0f,Space.World);
+                speed += 1f;
+			movementVector.y = 1;
         }
         if (Input.GetKey(KeyCode.S))
         {
             if (speed < maxspeed)
-                speed += .2f;
-            transform.Translate(0f, -1*speed*Time.deltaTime, 0f,Space.World);
+                speed += 1f;
+			movementVector.y = -1;;
         }
         if(!(Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.S)))
         {
             speed = 0;
         }
+		GetComponent<Rigidbody2D> ().AddForce(movementVector * speed, ForceMode2D.Force);
         transform.rotation = rot;
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
     }

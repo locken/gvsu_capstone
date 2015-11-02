@@ -27,20 +27,20 @@ public class FlockingAlgorithm : MonoBehaviour {
 				movementScript.collision = true;
 				Collider2D collider = other.collider;
 				if(collider.name.Contains("Enemy"))
-				{ 
-					Debug.Log("IN YES");
-					Vector3 contactPoint = other.contacts[0].point;
-					Vector3 center = collider.bounds.center;					
-					movementScript.collisionRight = contactPoint.x > center.x;
-					movementScript.collisionUp = contactPoint.y > center.y;
+				{ 				
+					movementScript.collisionRight = other.gameObject.GetComponent<Rigidbody2D>().position.x >
+						this.gameObject.GetComponent<Rigidbody2D>().position.x;
+					movementScript.collisionUp = other.gameObject.GetComponent<Rigidbody2D>().position.y >
+						this.gameObject.GetComponent<Rigidbody2D>().position.y;
 				}
 			}
 			if(other != null && other.gameObject != null && other.gameObject.tag == "Player")
 			{
+				Debug.Log("We found him.");
 				AI_Attributes enemyAttributes = other.gameObject.GetComponent<AI_Attributes>();
 				movementScript.playerCollision = true;
 				GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
-				
+
 				movementScript.collisionRight = this.transform.position.x > player.transform.position.x;
 				movementScript.collisionUp = this.transform.position.y > player.transform.position.y;
 				//enemyAttributes.Engaged = true;
