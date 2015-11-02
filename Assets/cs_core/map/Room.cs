@@ -3,21 +3,20 @@ using System.Collections;
 
 public class Room : MonoBehaviour {
 
-    GameObject baseTile;
+    GameObject baseTile, playerStartLoc;
+
     Random r = new Random();
     float length, height;
-    int seed;
+    
     Object[] mapSprites;
     ArrayList floorTiles;
     string tileset;
 
     // Use this for initialization
     void Start() {
-        seed = System.DateTime.Now.Second;
-        Random.seed = seed;
-        this.transform.name = "room";
 
         baseTile = new GameObject();
+        baseTile.transform.parent = this.transform;
 
         //ARRAY SIZE = NUMBER OF FOLDERS IN Resources/map
         string[] tilesets = new string[1];
@@ -43,10 +42,10 @@ public class Room : MonoBehaviour {
         Sprite floor05 = Resources.Load<Sprite>(tileset + "floor05");
 
         floorTiles.Add(floor01);
-        floorTiles.Add(floor02);
-        floorTiles.Add(floor03);
-        floorTiles.Add(floor04);
-        floorTiles.Add(floor05);
+        //floorTiles.Add(floor02);
+       // floorTiles.Add(floor03);
+        //floorTiles.Add(floor04);
+        //floorTiles.Add(floor05);
         /*** END LOAD ***/
 
         //GameObject rock = createCollidable("rock01"/);
@@ -60,7 +59,7 @@ public class Room : MonoBehaviour {
         height = Random.Range(10, 30);
         length = Random.Range(10, 30);
         //placing base tile in bottom left corner of our room.
-        baseTile.transform.position = new Vector3(-length / 2, -height / 2 - 0.5f, 0);
+        baseTile.transform.localPosition = new Vector3(-length / 2, -height / 2 - 0.5f, 0);
 
         for (int y = 0; y <= height; y++)
         {
@@ -109,6 +108,11 @@ public class Room : MonoBehaviour {
         }
     }
 
+   public void placePlayer(GameObject player)
+    {
+        player.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - height);
+    }
+
     //for the wait function
     IEnumerator Wait(float duration)
     {
@@ -143,9 +147,6 @@ public class Room : MonoBehaviour {
         retVal.transform.parent = this.transform;
         retVal.transform.position = new Vector3(baseTile.transform.position.x + x, baseTile.transform.position.y + y, 0.0f);
         
-        
-       
-
         SpriteRenderer retSprite = retVal.AddComponent<SpriteRenderer>();
         retSprite.sprite = Resources.Load<Sprite>(tileset + name);
         BoxCollider2D collider = retVal.AddComponent<BoxCollider2D>();
