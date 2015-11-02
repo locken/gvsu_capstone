@@ -2,21 +2,34 @@
 using System.Collections;
 
 public class PauseMenu : MonoBehaviour {
-    bool paused;
-	// Use this for initialization
-	void Start () {
-        paused = false;
-	}
+    bool paused, p_Pressed;
+    GameObject localInventory;
+    // Use this for initialization
+    void Start () {
+        paused = p_Pressed = false;
+        localInventory = GameObject.Find("_Master");
+    }
 
-    void PauseGame()
+    public void PauseGame(bool val)
     {
         Time.timeScale = 0;
         paused = true;
+        p_Pressed = val;
+    }
+
+    public bool GetPauseStatus()
+    {
+        return paused;
+    } 
+    
+    public bool Get_P_Pressed()
+    {
+        return p_Pressed;
     }
 
     void OnGUI()
     {
-        if (paused)
+        if (paused && p_Pressed && !localInventory.GetComponent<InventoryMenu>().GetInventoryStatus())
         {
             if (GUI.Button(new Rect(200, 100, 80, 50), "Unpause"))
             {
@@ -39,17 +52,17 @@ public class PauseMenu : MonoBehaviour {
 
 
 
-    void UnPauseGame()
+    public void UnPauseGame()
     {
         Time.timeScale = 1;
-        paused = false;
+        paused = p_Pressed = false;
     }
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown("p"))
+        if (Input.GetKeyDown("p") && !localInventory.GetComponent<InventoryMenu>().GetInventoryStatus())
         {
-            PauseGame();
+            PauseGame(true);
         }
 	}
 }
