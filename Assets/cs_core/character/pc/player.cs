@@ -34,6 +34,7 @@ public class player : MonoBehaviour {
 
         //create player
         plyr = new GameObject();
+        this.transform.parent = plyr.transform;
         plyr.name = "Player";
         plyr.AddComponent<Playable>();
         plyr.AddComponent<movement>();
