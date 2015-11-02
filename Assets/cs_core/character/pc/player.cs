@@ -3,6 +3,7 @@ using System.Collections;
 
 public class player : MonoBehaviour {
 
+    public Object []spriteHolder;
     //player variables
     public GameObject plyr;
     public SpriteRenderer playerSprite;
@@ -34,14 +35,18 @@ public class player : MonoBehaviour {
 
         //create player
         plyr = new GameObject();
+        this.transform.parent = plyr.transform;
         plyr.name = "Player";
         plyr.AddComponent<Playable>();
         plyr.AddComponent<movement>();
         playerSprite = plyr.AddComponent<SpriteRenderer>();
-        playerSprite.sprite = (Sprite)Resources.LoadAll("pc")[1];
+        spriteHolder = Resources.LoadAll("pc");
+        playerSprite.sprite = (Sprite)spriteHolder[1];
         playerCollider = plyr.AddComponent<BoxCollider2D>();
+        playerCollider.transform.parent = plyr.transform;
         plyr.AddComponent<Rigidbody2D>();
         GameObject localMaster = GameObject.Find("Main Camera");
+        //localMaster.AddComponent<CameraMovement>();
         localMaster.GetComponent<CameraMovement>().SetPlayer(plyr);
         
 
@@ -51,7 +56,16 @@ public class player : MonoBehaviour {
         rightHand.transform.parent = plyr.transform;
         rightHandItem = rightHand.AddComponent<basic_sword>();
         rightSr = rightHand.AddComponent<SpriteRenderer>();
+<<<<<<< HEAD
         rightSr.sprite = Resources.Load<Sprite>("item/weapon/");
+=======
+        //<<<<<<< Updated upstream
+        spriteHolder = Resources.LoadAll("item/weapon");
+        rightSr.sprite = (Sprite)spriteHolder[1];
+//=======
+        //rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
+//>>>>>>> Stashed changes
+>>>>>>> 04e4b150c75625f5a70bd5a4599ebdf37aa3d8d2
         rightHand.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
         rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
         rightHand.SetActive(false);
@@ -120,6 +134,7 @@ public class player : MonoBehaviour {
                 enemy = (AI_Attributes) other.gameObject.GetComponent("AI_Attributes");
                 enemy.Health = enemy.Health - rightHandItem.weaponDamage;
                 enemiesHit.Add(other.gameObject);
+                Debug.Log(enemy.Health);
             }
         }
     }
