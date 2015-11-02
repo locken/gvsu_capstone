@@ -128,6 +128,7 @@ MonoBehaviour:
   FlockingSpeed: 0
   collisionRight: 0
   collisionUp: 0
+  NotTouchingAi: 0
 --- !u!114 &13953924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 13953922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: -5, z: 0}
+  m_LocalPosition: {x: 3, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 86733469}
@@ -434,7 +435,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1184731685}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .400000006, y: -5, z: 0}
+  m_LocalPosition: {x: .400000006, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 86733469}
@@ -461,6 +462,7 @@ MonoBehaviour:
   FlockingSpeed: 0
   collisionRight: 0
   collisionUp: 0
+  NotTouchingAi: 0
 --- !u!61 &1184731688
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -590,6 +592,7 @@ MonoBehaviour:
   FlockingSpeed: 0
   collisionRight: 0
   collisionUp: 0
+  NotTouchingAi: 0
 --- !u!61 &1477680951
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -655,7 +658,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1477680949}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -6, z: 0}
+  m_LocalPosition: {x: -2, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 86733469}
@@ -725,6 +728,7 @@ MonoBehaviour:
   rightSr: {fileID: 0}
   rightBc: {fileID: 0}
   enemy: {fileID: 0}
+  plyrRb: {fileID: 0}
 --- !u!4 &1755856696
 Transform:
   m_ObjectHideFlags: 0

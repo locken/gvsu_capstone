@@ -100,10 +100,10 @@ public class player : MonoBehaviour {
         attack rotates 1 degree at a time).*/
         if (attack)
         {
-            if (wpnz < 10)
+            if (wpnz < 15)
             {
                 wpnz++;
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     rightHand.transform.Rotate(0, 0, 1);
                     wpnx = wpnx - ((2 / 3f) / 150f);
