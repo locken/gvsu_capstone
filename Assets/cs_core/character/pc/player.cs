@@ -3,6 +3,7 @@ using System.Collections;
 
 public class player : MonoBehaviour {
 
+    public Object []spriteHolder;
     //player variables
     public GameObject plyr;
     public SpriteRenderer playerSprite;
@@ -39,10 +40,13 @@ public class player : MonoBehaviour {
         plyr.AddComponent<Playable>();
         plyr.AddComponent<movement>();
         playerSprite = plyr.AddComponent<SpriteRenderer>();
-        playerSprite.sprite = (Sprite)Resources.LoadAll("pc")[1];
+        spriteHolder = Resources.LoadAll("pc");
+        playerSprite.sprite = (Sprite)spriteHolder[1];
         playerCollider = plyr.AddComponent<BoxCollider2D>();
+        playerCollider.transform.parent = plyr.transform;
         plyr.AddComponent<Rigidbody2D>();
         GameObject localMaster = GameObject.Find("Main Camera");
+        //localMaster.AddComponent<CameraMovement>();
         localMaster.GetComponent<CameraMovement>().SetPlayer(plyr);
         
 
@@ -52,8 +56,9 @@ public class player : MonoBehaviour {
         rightHand.transform.parent = plyr.transform;
         rightHandItem = rightHand.AddComponent<basic_sword>();
         rightSr = rightHand.AddComponent<SpriteRenderer>();
-//<<<<<<< Updated upstream
-        rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
+        //<<<<<<< Updated upstream
+        spriteHolder = Resources.LoadAll("item/weapon");
+        rightSr.sprite = (Sprite)spriteHolder[1];
 //=======
         //rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
 //>>>>>>> Stashed changes
@@ -125,6 +130,7 @@ public class player : MonoBehaviour {
                 enemy = (AI_Attributes) other.gameObject.GetComponent("AI_Attributes");
                 enemy.Health = enemy.Health - rightHandItem.weaponDamage;
                 enemiesHit.Add(other.gameObject);
+                Debug.Log(enemy.Health);
             }
         }
     }
