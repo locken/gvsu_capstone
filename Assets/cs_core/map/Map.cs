@@ -59,20 +59,37 @@ public class Map : MonoBehaviour {
 
         height = Random.Range(10, 30);
         length = Random.Range(10, 30);
+        //placing base tile in bottom left corner of our room.
         baseTile.transform.position = new Vector3(-length / 2, -height / 2 - 0.5f, 0);
 
-        GameObject currentTile = baseTile;
-        GameObject nextTile;
-        for (int y = 0; y <= height + 1; y++)
+        for (int y = 0; y <= height; y++)
         {
-            nextTile = new GameObject();
-            nextTile.transform.position =  new Vector3(baseTile.transform.position.x, baseTile.transform.position.y + y, 0.0f);  
-            currentTile = nextTile;
+           // nextTile = new GameObject();
+           // nextTile.transform.position =  new Vector3(baseTile.transform.position.x, baseTile.transform.position.y + y, 0.0f);  
+           // currentTile = nextTile;
 
             for (int x = 0; x <= length; x++)
             {
+                if (x == 0 && y == 0)
+                {
+                    GameObject wall = createCollidable("wallbl", baseTile, x, y);
+                }
+                else if(x == length && y == 0)
+                {
+                    GameObject wall = createCollidable("wallbr", baseTile, x, y);
 
-                if (x == 0 | x == length)
+                }
+                else if (x == 0 && y == height)
+                {
+                    GameObject wall = createCollidable("walltl", baseTile, x, y);
+
+                }
+                else if (x == length && y == height)
+                {
+                    GameObject wall = createCollidable("walltr", baseTile, x, y);
+
+                }
+                else if (x == 0 | x == length)
                 {
                     GameObject wall = createCollidable("wallv", baseTile, x, y);
                 }
@@ -82,15 +99,13 @@ public class Map : MonoBehaviour {
                 }
                 else
                 {
-                    nextTile = (GameObject)Instantiate(currentTile, currentTile.transform.position + Vector3.right, Quaternion.identity);
+                    GameObject nextTile = (GameObject)Instantiate(baseTile, new Vector3(baseTile.transform.position.x + x, baseTile.transform.position.y + y), Quaternion.identity);
                     nextTile.transform.parent = this.transform;
+                    //generate a new ground sprite for this tile
                     getFloorSprite(nextTile);
-                    currentTile = nextTile;
                 }
-
-
-                
             }
+            Destroy(baseTile);
         }
     }
 
