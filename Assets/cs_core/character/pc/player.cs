@@ -24,7 +24,7 @@ public class player : MonoBehaviour {
     //used for hitting enemies
     public ArrayList enemiesHit;
     public AI enemy;
-
+	public Rigidbody2D plyrRb; 
     private bool attack = false;
     private float wpnz = 0;
     private float wpnx = 18 / 24f;
@@ -44,7 +44,10 @@ public class player : MonoBehaviour {
         playerSprite.sprite = (Sprite)spriteHolder[1];
         playerCollider = plyr.AddComponent<BoxCollider2D>();
         playerCollider.transform.parent = plyr.transform;
-        plyr.AddComponent<Rigidbody2D>();
+        plyrRb = plyr.AddComponent<Rigidbody2D>();
+		plyrRb.gravityScale = 0;
+		plyrRb.isKinematic = false;
+		plyrRb.drag = 10;
         GameObject localMaster = GameObject.Find("Main Camera");
         //localMaster.AddComponent<CameraMovement>();
         localMaster.GetComponent<CameraMovement>().SetPlayer(plyr);
@@ -56,16 +59,12 @@ public class player : MonoBehaviour {
         rightHand.transform.parent = plyr.transform;
         rightHandItem = rightHand.AddComponent<basic_sword>();
         rightSr = rightHand.AddComponent<SpriteRenderer>();
-<<<<<<< HEAD
-        rightSr.sprite = Resources.Load<Sprite>("item/weapon/");
-=======
-        //<<<<<<< Updated upstream
+
         spriteHolder = Resources.LoadAll("item/weapon");
         rightSr.sprite = (Sprite)spriteHolder[1];
-//=======
+
         //rightSr.sprite = (Sprite)Resources.LoadAll("item/weapon")[0];
-//>>>>>>> Stashed changes
->>>>>>> 04e4b150c75625f5a70bd5a4599ebdf37aa3d8d2
+
         rightHand.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
         rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
         rightHand.SetActive(false);

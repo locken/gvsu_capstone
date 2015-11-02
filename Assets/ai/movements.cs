@@ -32,6 +32,9 @@ public class movements : MonoBehaviour
 		collisionRight = false;
 		collisionUp = false;
 		NotTouchingAi = true;
+		speed = 15;
+		GetComponent<Rigidbody2D> ().drag = 10;
+
 	}
 	
 	// Update is called once per frame
@@ -104,7 +107,8 @@ public class movements : MonoBehaviour
 		transform.rotation = rot;
 		transform.eulerAngles = new Vector3 (0, 0, transform.eulerAngles.z);
 		Vector2 movementVector = new Vector2 (positionVector.x, positionVector.y);
-		GetComponent<Rigidbody2D> ().AddForce (movementVector * currentSpeed, ForceMode2D.Force);
+		Debug.Log ("X: " + positionVector.x + "\nY: " + positionVector.y + "\nSpeed: " + currentSpeed);
+		GetComponent<Rigidbody2D> ().AddForce (movementVector * speed, ForceMode2D.Force);
 		//GetComponent<Rigidbody2D> ().MovePosition (transform.position + transform.forward * Time.deltaTime);
 	}
 	
