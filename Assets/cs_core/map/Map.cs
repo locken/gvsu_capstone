@@ -20,11 +20,15 @@ public class Map : MonoBehaviour {
         room.transform.parent = this.transform;
         room2.transform.parent = this.transform;
         room2.transform.name = "room2";
-        room.transform.position = new Vector3(30, 0);
-        room2.transform.position = new Vector3(-30, 0);
+        room.transform.position = new Vector3(0, 0);
+        room2.transform.position = new Vector3(-40, 0);
+
         Room r = (Room)room.AddComponent<Room>();
         Room r2 = (Room)room2.AddComponent<Room>();
-
+        //Vector3 dest = r2.GetDestination("w");
+        //r.SetDestination(dest, "w");
+        //r.SetDoorActive("west", r3.GetComponent<Room>().wDoor, r3.GetComponent<Room>().eDoor);
+       // r2.SetDoorActive("east", r2.eDoor, r.wDoor);
         r.placePlayer(player);
 
         
