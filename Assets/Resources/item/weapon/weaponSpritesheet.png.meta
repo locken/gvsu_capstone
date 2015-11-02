@@ -1,16 +1,7 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
 guid: 636181da3b61a3a48a959e147cb07e0f
-=======
-guid: 3e4fd307bedcc43f68b89f6baea98548
->>>>>>> Stashed changes
-timeCreated: 1444321861
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: knife
-    21300002: sword
-    21300004: weaponSpritesheet_0
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -44,6 +35,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -55,37 +47,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: knife
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 216
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sword
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 198
-        width: 41
-        height: 12
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: weaponSpritesheet_0
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 226
-        width: 20
-        height: 6
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

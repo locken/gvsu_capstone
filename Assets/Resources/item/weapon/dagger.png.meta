@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 5ba1d644dcb7fb14d858c82186073c13
-timeCreated: 1446420018
+guid: 636ace87362c32c45972f64f63b02346
+timeCreated: 1446420441
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: otherItemSpritesheet_0
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -50,17 +49,7 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: otherItemSpritesheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 240
-        height: 240
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+    sprites: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

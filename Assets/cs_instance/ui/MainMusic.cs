@@ -22,6 +22,16 @@ public class MainMusic : MonoBehaviour {
         //musicSource = GetComponent<AudioSource>();
     }
 
+    public void MuteMusic()
+    {
+        this.GetComponent<AudioSource>().mute = true;
+    }
+
+    public void UnmuteMusic()
+    {
+        this.GetComponent<AudioSource>().mute = false;
+    }
+
     // Use this for initialization
     void Start () {
         //instance.addComponent()
