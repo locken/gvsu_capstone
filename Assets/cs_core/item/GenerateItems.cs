@@ -18,11 +18,8 @@ public class GenerateItems : MonoBehaviour {
         for (int i = 0; i < itemsToGenerate; i++)
         {
             string tempItemType = GetRandomItemType();
-            //Object[] array = Resources.LoadAll("item/" + tempItemType);
             GameObject itemGenerate = new GameObject();
-            SpriteRenderer itemGenerateSprite = itemGenerate.AddComponent<SpriteRenderer>();
             itemGenerate.name = "item" + i;
-            //itemGenerateSprite.sprite = (Sprite)array[1];
             if(tempItemType == "weapon")
             {
                 itemGenerate.AddComponent<weaponItem>();
@@ -59,14 +56,14 @@ public class GenerateItems : MonoBehaviour {
             Destroy(itemGenerate);
         }
 
-        Object[] array = Resources.LoadAll("item/consumable");
+        /*Object[] array = Resources.LoadAll("item/consumable");
 		Debug.Log ("Array Length: " + array[0]);
         GameObject item01 = new GameObject();
         SpriteRenderer item01sprite = item01.AddComponent<SpriteRenderer>();
         item01.name = "item01";
        // item01sprite.sprite = (Sprite)array[1];
         GameObject item02 = (GameObject)Instantiate(item01, new Vector3(3.0f, 4.0f), Quaternion.identity);
-        Destroy(item01);
+        Destroy(item01);*/
     }
 
     int GetRandomNumItems()
