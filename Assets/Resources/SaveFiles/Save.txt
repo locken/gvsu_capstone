@@ -1,0 +1,12 @@
+jon
+11/4/2015 12:33:25 AM
+Level: 1
+Health: 100
+Magic: 50
+Active Weapon: basic_sword
+Inventory: 
+ basic_sword 
+ empty 
+ empty 
+ empty 
+ empty
