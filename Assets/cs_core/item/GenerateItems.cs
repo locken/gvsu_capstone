@@ -11,6 +11,7 @@ public class GenerateItems : MonoBehaviour {
 
         //Create base item and use Instantiate function for real new items then destroy the base. 
     void Start () {
+        string spritePath;
         Random.seed = System.DateTime.UtcNow.Second;
         int itemsToGenerate = GetRandomNumItems();
         int[] usedX = new int[itemsToGenerate];
@@ -23,17 +24,21 @@ public class GenerateItems : MonoBehaviour {
             if(tempItemType == "weapon")
             {
                 itemGenerate.AddComponent<weaponItem>();
+                spritePath = "item/weapon/dagger";
             }
             else if(tempItemType == "armor")
             {
                 itemGenerate.AddComponent<armorItem>();
+                spritePath = "item/armor/armorSpritesheet";
             }
             else if(tempItemType == "consumable")
             {
+                spritePath = "item/consumable/food";
                 itemGenerate.AddComponent<consumableItem>();
             }
             else
             {
+                spritePath = "item/weapon/dagger";
                 itemGenerate.AddComponent<otherItem>();
             }
             int newX = GetRandomPos();
@@ -53,6 +58,10 @@ public class GenerateItems : MonoBehaviour {
             GameObject itemFinal = (GameObject)Instantiate(itemGenerate, new Vector3(newX, newY), Quaternion.identity);
             usedX[i] = newX;
             usedY[i] = newY;
+            SpriteRenderer itemF_sr = itemFinal.AddComponent<SpriteRenderer>();
+            itemF_sr.sprite = Resources.Load<Sprite>(spritePath);
+            itemFinal.transform.localScale += new Vector3(4.0F, 4.0F);
+            //BoxCollider2D itemF_bc = itemFinal.AddComponent<BoxCollider2D>();
             Destroy(itemGenerate);
         }
 
@@ -93,11 +102,11 @@ public class GenerateItems : MonoBehaviour {
         }
         return temp;
     }
-    //between size 1 and 9
+    //between size 0 and 5. In the future we should get the room size and manipulate the bounds
     // use for both x and y position
     int GetRandomPos()
     {
-        return Random.Range(1, 9);
+        return Random.Range(0, 5);
 
     }
 	// Update is called once per frame

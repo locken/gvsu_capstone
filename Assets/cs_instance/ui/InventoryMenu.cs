@@ -44,6 +44,38 @@ public class InventoryMenu : MonoBehaviour {
         localPause.GetComponent<PauseMenu>().PauseGame(false);
     }
 
+    public void AddItem(string newItem)
+    {
+        if (FreeItemSpot())
+        {
+            Debug.Log("There is a free spot");
+        }
+    }
+
+    bool FreeItemSpot()
+    {
+        int i = 7;
+        while (!data[i].Equals("empty"))
+        {
+            if(i < 11)
+            {
+                i++;
+            } else
+            {
+                if (data[i].Equals("empty")) //'i' == 11 here.
+                {
+                    i++; //Now 'i' should be greater than 11.
+                }
+                break;
+            }
+        }
+        if(i < 12)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public bool GetInventoryStatus()
     {
         return inventory;
