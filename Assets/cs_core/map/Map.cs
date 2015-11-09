@@ -12,7 +12,7 @@ public class Map : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        size = 10;
+        size = 2;
         roomGrid = new GameObject[size, size];
         
         //grab player object
@@ -45,10 +45,10 @@ public class Map : MonoBehaviour {
         //r.SetDoorActive("west", r3.GetComponent<Room>().wDoor, r3.GetComponent<Room>().eDoor);
         //r2.SetDoorActive("east", r2.eDoor, r.wDoor);
         //r.placePlayer(player);
-
-
+    
+    
     }
-
+    
     public void PlacePlayer(float x, float y)
     {
         //player.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - height);

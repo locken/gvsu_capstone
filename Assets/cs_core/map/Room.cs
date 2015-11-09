@@ -6,7 +6,8 @@ public class Room : MonoBehaviour {
     GameObject baseTile, playerStartLoc;
 
     Random r = new Random();
-    float length, height;
+    int length = Random.Range(10, 30);
+    int height = Random.Range(10, 30);
     
     Object[] mapSprites;
     ArrayList floorTiles;
@@ -14,7 +15,6 @@ public class Room : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
         baseTile = new GameObject();//nDoor = sDoor = eDoor = eDest = sDest = nDest = new GameObject();
         baseTile.transform.parent = this.transform;//= nDoor.transform.parent = sDoor.transform.parent = eDoor.transform.parent = this.transform;
         //eDest.transform.parent = sDest.transform.parent = nDest.transform.parent = this.transform;
@@ -48,16 +48,13 @@ public class Room : MonoBehaviour {
         //floorTiles.Add(floor05);
         /*** END LOAD ***/
 
-        //GameObject rock = createCollidable("rock01"/);
-
         getFloorSprite(baseTile);
 
         SpriteRenderer floorSprite = baseTile.GetComponent<SpriteRenderer>();
         float tileLength = floorSprite.bounds.size.x;
         float tileWidth = floorSprite.bounds.size.y;
 
-        height = Random.Range(10, 30);
-        length = Random.Range(10, 30);
+        
         //placing base tile in bottom left corner of our room.
         baseTile.transform.localPosition = new Vector3(-length / 2, -height / 2 - 0.5f, 0);
 
@@ -108,6 +105,16 @@ public class Room : MonoBehaviour {
         }
     }
 
+    float getLength()
+    {
+        return (float)length;
+    }
+
+    float getHeight()
+    {
+        return (float)height;
+    }
+
    public void SetDoorActive(string direction)
     {
         //GameObject localActive = new GameObject();
@@ -128,9 +135,9 @@ public class Room : MonoBehaviour {
                 //activeDoor.name = "sDoor";
                 break;
             case "east":
-                doorPos = new Vector3(0,length / 2);
+                doorPos = new Vector3(getLength() / 2, 0);
                 doorName = "eDoor";
-                Debug.Log(length);
+                Debug.Log("getLength(): "+getLength());
                 //eDest = destDoor;
                 ///activeDoor.transform.name = "eDoor";
                 break;
@@ -167,30 +174,24 @@ public class Room : MonoBehaviour {
         {
             name += " e";
             //TODO
-            //SendMessageUpwards("RoomSrc", this.transform.name);
-            //SendMessageUpwards("RoomDir", "east");
-            //SendMessageUpwards("RoomSrc", this.transform.name);
+            //SendMessageUpwards("roomTransition", this);
 
             SendMessageUpwards("RoomTransition", name);
             Debug.Log("lkauhksdfsgkyfdsjghjfdsjgkdfjgkhf");
-            // c.gameObject.transform.position = eDest.transform.position;
         } else if (c.name == "wDoor")
         {
             name += " w";
             SendMessageUpwards("RoomTransition", name);
-            //c.gameObject.transform.position = wDest.transform.position;
         }
         else if (c.name == "nDoor")
         {
             name += " n";
             SendMessageUpwards("RoomTransition", name);
-            //c.gameObject.transform.position = eDest.transform.position;
         }
         else if (c.name == "sDoor")
         {
             name += " s";
             SendMessageUpwards("RoomTransition", name);
-            //c.gameObject.transform.position = eDest.transform.position;
         }
     }
 
