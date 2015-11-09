@@ -5,8 +5,6 @@ public class Room : MonoBehaviour {
 
     GameObject baseTile, playerStartLoc;
 
-    public GameObject nDoor, sDoor, wDoor, eDoor, eDest, wDest, sDest, nDest;
-
     Random r = new Random();
     float length, height;
     
@@ -20,18 +18,6 @@ public class Room : MonoBehaviour {
         baseTile = new GameObject();//nDoor = sDoor = eDoor = eDest = sDest = nDest = new GameObject();
         baseTile.transform.parent = this.transform;//= nDoor.transform.parent = sDoor.transform.parent = eDoor.transform.parent = this.transform;
         //eDest.transform.parent = sDest.transform.parent = nDest.transform.parent = this.transform;
-        wDest = new GameObject();
-        wDoor = new GameObject();
-        eDest = new GameObject();
-        eDoor = new GameObject();
-        wDest.transform.parent = this.transform;
-        wDoor.transform.parent = this.transform;
-        eDest.transform.parent = this.transform;
-        eDest.transform.name = "eDest";
-        wDest.transform.name = "wDest";
-        eDoor.transform.name = "eDoor";
-        wDoor.transform.name = "wDoor";
-        eDoor.transform.parent = this.transform;
         //ARRAY SIZE = NUMBER OF FOLDERS IN Resources/map
         string[] tilesets = new string[1];
         tilesets[0] = "map/desert/";
@@ -122,94 +108,90 @@ public class Room : MonoBehaviour {
         }
     }
 
-    public Vector3 GetDestination(string d)
-    {
-        switch (d)
-        {
-            case "w":
-                return new Vector3(0, length / 2);
-            default:
-                return new Vector3(0, -length / 2);
-        }
-    }
-
-    public void SetDestination(Vector3 v, string d)
-    {
-        //wDest = new GameObject();
-        //wDoor = new GameObject();
-        //eDest = new GameObject();
-        //eDoor = new GameObject();
-        switch (d)
-        {
-            case "w":
-                wDest.transform.position = v;
-                break;
-            default:
-                wDest.transform.position = v;
-                break;
-        }
-    }
-
-   public void SetDoorActive(string direction, GameObject activeDoor, GameObject destDoor)
+   public void SetDoorActive(string direction)
     {
         //GameObject localActive = new GameObject();
         //activeDoor;
+        GameObject door = new GameObject();
         Vector3 doorPos;
+        string doorName = "default";
         switch (direction)
         {
             case "north":
-                nDest = destDoor;
-                 doorPos = new Vector3(0, 0);
-                //activeDoor.name = "nDoor";
+                
+                doorPos = new Vector3(0, 0);
+                doorName = "nDoor";
                 break;
             case "south":
-                sDest = destDoor;
+                //sDest = destDoor;
                 doorPos = new Vector3(0, 0);
                 //activeDoor.name = "sDoor";
                 break;
             case "east":
                 doorPos = new Vector3(0,length / 2);
-                eDest = destDoor;
-                //activeDoor.transform.name = "eDoor";
+                doorName = "eDoor";
+                Debug.Log(length);
+                //eDest = destDoor;
+                ///activeDoor.transform.name = "eDoor";
                 break;
             case "west":
                 doorPos = new Vector3(0, -length / 2);
-                wDest = destDoor;
+                //wDest = destDoor;
                 //activeDoor.transform.name = "wDoor";
                 //Debug.Log(localActive.transform.name);
                 break;
             default:
                 doorPos = new Vector3(0, 0);
+                doorName = "whatDoor";
                 break;
         }
-        activeDoor.transform.position = doorPos;
-        activeDoor.AddComponent<BoxCollider2D>();
+        door.transform.name = doorName;
+        door.transform.parent = this.transform;
+        door.transform.localPosition = doorPos;
+        
+        door.AddComponent<BoxCollider2D>();
+        door.AddComponent<SpriteRenderer>();
+        Debug.Log(doorPos);
+        //Add sprite later -------------------------------------------------------------------------------------------------------------------------
+
+        //activeDoor.transform.position = doorPos;
+        //activeDoor.AddComponent<BoxCollider2D>();
         //activeDoor = localActive;
     }
 
     void OnTriggerEnter2D(Collider2D c)
     {
+        string name = this.transform.name;
         Debug.Log("aldfj");
-        if(c.name == "eDoor")
+        if(c.name == "Player")
         {
-            c.gameObject.transform.position = eDest.transform.position;
+            name += " e";
+            //TODO
+            //SendMessageUpwards("RoomSrc", this.transform.name);
+            //SendMessageUpwards("RoomDir", "east");
+            //SendMessageUpwards("RoomSrc", this.transform.name);
+
+            SendMessageUpwards("RoomTransition", name);
+            Debug.Log("lkauhksdfsgkyfdsjghjfdsjgkdfjgkhf");
+            // c.gameObject.transform.position = eDest.transform.position;
         } else if (c.name == "wDoor")
         {
-            c.gameObject.transform.position = wDest.transform.position;
+            name += " w";
+            SendMessageUpwards("RoomTransition", name);
+            //c.gameObject.transform.position = wDest.transform.position;
         }
         else if (c.name == "nDoor")
         {
-            c.gameObject.transform.position = eDest.transform.position;
+            name += " n";
+            SendMessageUpwards("RoomTransition", name);
+            //c.gameObject.transform.position = eDest.transform.position;
         }
         else if (c.name == "sDoor")
         {
-            c.gameObject.transform.position = eDest.transform.position;
+            name += " s";
+            SendMessageUpwards("RoomTransition", name);
+            //c.gameObject.transform.position = eDest.transform.position;
         }
-    }
-
-   public void placePlayer(GameObject player)
-    {
-        player.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - height);
     }
 
     //for the wait function
