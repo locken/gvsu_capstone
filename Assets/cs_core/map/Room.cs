@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Room : MonoBehaviour {
 
     GameObject baseTile, playerStartLoc;
 
     Random r = new Random();
-    int length = Random.Range(10, 30);
-    int height = Random.Range(10, 30);
+    int length = (int)(Mathf.Round(Random.Range(10, 30) / 2) * 2);
+    int height = (int)(Mathf.Round(Random.Range(10, 30) / 2) * 2);
     
     Object[] mapSprites;
     ArrayList floorTiles;
+	public Dictionary<string, GameObject> doors = new Dictionary<string, GameObject>();
     string tileset;
 
     // Use this for initialization
@@ -23,7 +25,6 @@ public class Room : MonoBehaviour {
         tilesets[0] = "map/desert/";
         int tsIndex= Random.Range(0, tilesets.Length);
         tileset = tilesets[tsIndex];
-
 
 
         /*** LOAD SPRITES ***/
@@ -56,7 +57,7 @@ public class Room : MonoBehaviour {
 
         
         //placing base tile in bottom left corner of our room.
-        baseTile.transform.localPosition = new Vector3(-length / 2, -height / 2 - 0.5f, 0);
+        baseTile.transform.localPosition = new Vector3(-length / 2, -height / 2 , 0);
 
         for (int y = 0; y <= height; y++)
         {
@@ -105,95 +106,34 @@ public class Room : MonoBehaviour {
         }
     }
 
-    float getLength()
+    int getLength()
     {
-        return (float)length;
+        return length;
     }
 
-    float getHeight()
+    int getHeight()
     {
-        return (float)height;
+        return height;
     }
 
-   public void SetDoorActive(string direction)
-    {
-        //GameObject localActive = new GameObject();
-        //activeDoor;
-        GameObject door = new GameObject();
-        Vector3 doorPos;
-        string doorName = "default";
-        switch (direction)
-        {
-            case "north":
-                
-                doorPos = new Vector3(0, 0);
-                doorName = "nDoor";
-                break;
-            case "south":
-                //sDest = destDoor;
-                doorPos = new Vector3(0, 0);
-                //activeDoor.name = "sDoor";
-                break;
-            case "east":
-                doorPos = new Vector3(getLength() / 2, 0);
-                doorName = "eDoor";
-                Debug.Log("getLength(): "+getLength());
-                //eDest = destDoor;
-                ///activeDoor.transform.name = "eDoor";
-                break;
-            case "west":
-                doorPos = new Vector3(0, -length / 2);
-                //wDest = destDoor;
-                //activeDoor.transform.name = "wDoor";
-                //Debug.Log(localActive.transform.name);
-                break;
-            default:
-                doorPos = new Vector3(0, 0);
-                doorName = "whatDoor";
-                break;
-        }
-        door.transform.name = doorName;
-        door.transform.parent = this.transform;
-        door.transform.localPosition = doorPos;
-        
-        door.AddComponent<BoxCollider2D>();
-        door.AddComponent<SpriteRenderer>();
-        Debug.Log(doorPos);
-        //Add sprite later -------------------------------------------------------------------------------------------------------------------------
+	public void createDoors() 
+	{
+		string[] directions = new string[4] {"north", "south", "east", "west"};
+		
 
-        //activeDoor.transform.position = doorPos;
-        //activeDoor.AddComponent<BoxCollider2D>();
-        //activeDoor = localActive;
-    }
+		foreach(string dir in directions) 
+		{
+			GameObject door = new GameObject();
+			door.transform.name = this.transform.name + " " + dir;
+			door.transform.parent = this.transform;
+			Door d = (Door)door.AddComponent<Door>();
+			doors.Add (dir, d.SetDoorActive(dir, getLength(), getHeight()));
+		}
+	}
 
-    void OnTriggerEnter2D(Collider2D c)
-    {
-        string name = this.transform.name;
-        Debug.Log("aldfj");
-        if(c.name == "Player")
-        {
-            name += " e";
-            //TODO
-            //SendMessageUpwards("roomTransition", this);
+   
 
-            SendMessageUpwards("RoomTransition", name);
-            Debug.Log("lkauhksdfsgkyfdsjghjfdsjgkdfjgkhf");
-        } else if (c.name == "wDoor")
-        {
-            name += " w";
-            SendMessageUpwards("RoomTransition", name);
-        }
-        else if (c.name == "nDoor")
-        {
-            name += " n";
-            SendMessageUpwards("RoomTransition", name);
-        }
-        else if (c.name == "sDoor")
-        {
-            name += " s";
-            SendMessageUpwards("RoomTransition", name);
-        }
-    }
+
 
     //for the wait function
     IEnumerator Wait(float duration)

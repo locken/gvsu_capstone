@@ -65,7 +65,6 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -85,6 +84,9 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!127 &5
+LevelGameManager:
+  m_ObjectHideFlags: 0
 --- !u!1 &13953922
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +162,6 @@ BoxCollider2D:
   m_Size: {x: .976875842, y: .993623734}
 --- !u!50 &13953926
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 5051344, guid: b5e0f2c699db41840b2e95efe210fc42,
     type: 2}
@@ -170,11 +171,11 @@ Rigidbody2D:
   m_LinearDrag: 50
   m_AngularDrag: .0500000007
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!212 &13953927
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -296,12 +297,10 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
-  m_StereoMirrorMode: 0
 --- !u!4 &29701210
 Transform:
   m_ObjectHideFlags: 0
@@ -340,7 +339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &86733469
 Transform:
   m_ObjectHideFlags: 0
@@ -414,7 +413,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1142370348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2766a53c5cb502443a0dcd822eb35241, type: 3}
   m_Name: 
@@ -491,7 +490,6 @@ BoxCollider2D:
   m_Size: {x: .976875842, y: .993623734}
 --- !u!50 &1184731689
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 5051344, guid: b5e0f2c699db41840b2e95efe210fc42,
     type: 2}
@@ -501,11 +499,11 @@ Rigidbody2D:
   m_LinearDrag: 50
   m_AngularDrag: .0500000007
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!212 &1184731690
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -621,7 +619,6 @@ BoxCollider2D:
   m_Size: {x: .976875842, y: .993623734}
 --- !u!50 &1477680952
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 5051344, guid: b5e0f2c699db41840b2e95efe210fc42,
     type: 2}
@@ -631,11 +628,11 @@ Rigidbody2D:
   m_LinearDrag: 50
   m_AngularDrag: .0500000007
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!212 &1477680953
 SpriteRenderer:
   m_ObjectHideFlags: 0
