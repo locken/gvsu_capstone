@@ -12,7 +12,7 @@ public class Map : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        size = 10;
+        size = 4;
         roomGrid = new GameObject[size, size];
         
         //grab player object
@@ -29,18 +29,18 @@ public class Map : MonoBehaviour {
         {
             roomGrid[arrayCol, arrayRow] = GenerateRoom(arrayCol, arrayRow, currentRoom);
             arrayCol++;
-            if (arrayCol == 10) {
+            if (arrayCol == size) {
                 arrayCol = 0;
                 arrayRow++;
             } 
-			currentRoom = arrayRow * 10 + arrayCol;
+			currentRoom = arrayRow * size + arrayCol;
         }
 		drawFunkyLines();
     }
     
-    public void PlacePlayer(float x, float y)
+    public void PlacePlayer(Vector3 dest)
     {
-        //player.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - height);
+        player.transform.position = dest;
     }
 
     /*
@@ -53,6 +53,9 @@ public class Map : MonoBehaviour {
 		string[] splitString = obj.transform.name.Split();
 		string roomName = splitString[0];
 		string doorDir = splitString[1]; 
+		GameObject src = roomDict[roomName];
+		GameObject dest = roomDict["room4"];
+		PlacePlayer(dest.transform.position);
     }
 
     GameObject GenerateRoom(int col, int row, int roomNum)
@@ -84,8 +87,6 @@ public class Map : MonoBehaviour {
 
 				if (col + 1 < size)
 				{
-					//Debug.Log ("East Vector3 Door Location for " + roomGrid[col,row].transform.name + ": " + doors["east"].transform.position); 
-					//Debug.DrawLine(roomGrid[col,row].transform.position]
 					horSrc = doors["east"];
 					GameObject eastNeighbor = roomGrid[col+1,row];
 					horDest = ((Room)(eastNeighbor.GetComponent<Room>())).doors["west"];
