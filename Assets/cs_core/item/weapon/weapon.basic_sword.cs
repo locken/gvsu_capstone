@@ -17,7 +17,7 @@ public class basic_sword : weaponItem {
         cooldown = 1.0f;
 
         //weapon attributes
-        weaponDamage = 1;
+        weaponDamage = 10;
 
         
     }

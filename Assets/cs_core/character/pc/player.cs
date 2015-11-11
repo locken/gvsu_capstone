@@ -8,6 +8,7 @@ public class player : MonoBehaviour {
     public GameObject plyr;
     public SpriteRenderer playerSprite;
     public BoxCollider2D playerCollider;
+    public Playable plyrStats;
 
     //right hand variables
     public GameObject rightHand;
@@ -22,8 +23,7 @@ public class player : MonoBehaviour {
     public BoxCollider2D leftBc;*/
 
     //used for hitting enemies
-    public ArrayList enemiesHit;
-    public AI enemy;
+    //public ArrayList enemiesHit;
 	public Rigidbody2D plyrRb; 
     private bool attack = false;
     private float wpnz = 0;
@@ -37,7 +37,7 @@ public class player : MonoBehaviour {
         plyr = new GameObject();
         this.transform.parent = plyr.transform;
         plyr.name = "Player";
-        plyr.AddComponent<Playable>();
+        plyrStats = plyr.AddComponent<Playable>();
         plyr.AddComponent<movement>();
         playerSprite = plyr.AddComponent<SpriteRenderer>();
         spriteHolder = Resources.LoadAll("pc");
@@ -67,9 +67,12 @@ public class player : MonoBehaviour {
 
         rightHand.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
         rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
-        rightHand.SetActive(false);
         rightBc = rightHand.AddComponent<BoxCollider2D>();
         rightBc.isTrigger = true;
+
+        rightHand.AddComponent<damage>();
+        rightHand.SendMessage("setWeapon", rightHandItem);
+        rightHand.SetActive(false);
 
         /*//add leftHand to player
         rightHand = new GameObject();
@@ -84,7 +87,7 @@ public class player : MonoBehaviour {
         rightHand.AddComponent<BoxCollider2D>();*/
 
         //instantiate enemiesHit
-        enemiesHit = new ArrayList();
+        //enemiesHit = new ArrayList();
     }
 
     // Update is called once per frame
@@ -117,24 +120,29 @@ public class player : MonoBehaviour {
                 wpnx = 18 / 24f;
                 rightHand.transform.localPosition = new Vector3(wpnx, 18 / 24f, 0f);
                 attack = false;
-                enemiesHit.Clear();
+                rightHand.SendMessage("ClearArray");
                 rightHand.SetActive(false);
             }
         }
 
     }
 
-    void onTriggerEnter(Collider other)
+    /*void ApplyDamage(Collider2D other)
     {
+        Debug.Log("collision");
         if (!enemiesHit.Contains(other.gameObject))
         {
-            if (other.gameObject.tag == "Enemy")
+            Debug.Log("object not hit");
+            if (other.gameObject.CompareTag("Enemy"))
             {
-                enemy = (AI_Attributes) other.gameObject.GetComponent("AI_Attributes");
-                enemy.Health = enemy.Health - rightHandItem.weaponDamage;
+                Debug.Log("object is enemy");
+                AI_Attributes enemy = other.gameObject.GetComponent("AI_Attributes") as AI_Attributes;
+                int health = enemy.Health;
+                Debug.Log(health);
                 enemiesHit.Add(other.gameObject);
+                Debug.Log(rightHandItem.weaponDamage);
                 Debug.Log(enemy.Health);
             }
         }
-    }
+    }*/
 }
