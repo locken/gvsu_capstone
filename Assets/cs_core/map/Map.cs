@@ -6,13 +6,16 @@ public class Map : MonoBehaviour {
     ArrayList rooms;
     GameObject[,] roomGrid;
     Dictionary<string, GameObject> roomDict = new Dictionary<string, GameObject>();
+   //Dictionary<int, obj> door connections. each door will be assigned a unique index, lookup its destination obj.
+   
+
     int seed; 
     int size;
     GameObject player;
 
     // Use this for initialization
     void Start () {
-        size = 4;
+        size = 80;
         roomGrid = new GameObject[size, size];
         
         //grab player object
@@ -35,7 +38,7 @@ public class Map : MonoBehaviour {
             } 
 			currentRoom = arrayRow * size + arrayCol;
         }
-		drawFunkyLines();
+		createEdges();
     }
     
     public void PlacePlayer(Vector3 dest)
@@ -90,26 +93,84 @@ public class Map : MonoBehaviour {
 					horSrc = doors["east"];
 					GameObject eastNeighbor = roomGrid[col+1,row];
 					horDest = ((Room)(eastNeighbor.GetComponent<Room>())).doors["west"];
-					Debug.DrawLine (horSrc.transform.position, horDest.transform.position,Color.white, 5, false);
+					Debug.DrawLine (horSrc.transform.position, horDest.transform.position,Color.green, 5, true);
 					//GameObject westNeighbor = roomGrid[col-1,row];
 				}
 
 
 				if(row + 1 < size)
 				{
-					Debug.Log (row);
+					//Debug.Log (row);
 					vertSrc = doors["north"];
 					GameObject northNeighbor = roomGrid[col,row+1];
 					vertDest = ((Room)(northNeighbor.GetComponent<Room>())).doors["south"];
-					Debug.Log (vertSrc.transform.position + " " + vertDest.transform.position);
-					Debug.DrawLine (vertSrc.transform.position, vertDest.transform.position,Color.red, 5, false);
+					//Debug.Log (vertSrc.transform.position + " " + vertDest.transform.position);
+					Debug.DrawLine (vertSrc.transform.position, vertDest.transform.position, Color.white, 5, true);
 				}
 			}
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    void createEdges()
+    {
+        int index = 0;
+        for (int row = 0; row < size; row++)
+        {
+            for (int col = 0; col < size; col++)
+            {
+                GameObject curr = roomGrid[col, row];
+                GameObject vertSrc, vertDest = null;
+                GameObject horSrc, horDest = null;
+
+                Dictionary<string, GameObject> doors = (roomGrid[col, row].GetComponent<Room>()).doors;
+
+
+                if (col + 1 < size)
+                {
+                    GameObject edge = new GameObject();
+                    Edge e = (Edge)edge.AddComponent<Edge>();
+                    e.toggleActive();
+                    e.index = index;
+
+                    index++;
+                    horSrc = doors["east"];
+                    GameObject eastNeighbor = roomGrid[col + 1, row];
+                    horDest = ((Room)(eastNeighbor.GetComponent<Room>())).doors["west"];
+
+                    e.node1 = horSrc;
+                    e.node2 = horDest;
+                    e.room1 = roomGrid[col, row];
+                    e.room2 = roomGrid[col + 1, row];
+                    Debug.DrawLine(horSrc.transform.position, horDest.transform.position, Color.green, 5, true);
+
+                }
+
+                if (row + 1 < size)
+                {
+                    GameObject edge = new GameObject();
+                    Edge e = (Edge)edge.AddComponent<Edge>();
+                    e.toggleActive();
+                    e.index = index;
+
+                    index++;
+                    vertSrc = doors["north"];
+                    GameObject northNeighbor = roomGrid[col, row + 1];
+                    vertDest = ((Room)(northNeighbor.GetComponent<Room>())).doors["south"];
+
+                    e.node1 = vertSrc;
+                    e.node2 = vertDest;
+                    e.room1 = roomGrid[col, row];
+                    e.room2 = roomGrid[col, row+1];
+                    Debug.DrawLine(vertSrc.transform.position, vertDest.transform.position, Color.white, 5, true);
+
+                }
+                Debug.Log(index);
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 }
