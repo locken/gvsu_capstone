@@ -3,11 +3,11 @@ using System.Collections;
 
 public class PauseMenu : MonoBehaviour {
     bool paused, p_Pressed;
-    GameObject localInventory;
+    GameObject localMaster;
     // Use this for initialization
     void Start () {
         paused = p_Pressed = false;
-        localInventory = GameObject.Find("_Master");
+        localMaster = GameObject.Find("_Master");
     }
 
     public void PauseGame(bool val)
@@ -29,7 +29,7 @@ public class PauseMenu : MonoBehaviour {
 
     void OnGUI()
     {
-        if (paused && p_Pressed && !localInventory.GetComponent<InventoryMenu>().GetInventoryStatus())
+        if (paused && p_Pressed && !localMaster.GetComponent<InventoryMenu>().GetInventoryStatus())
         {
             if (GUI.Button(new Rect(200, 100, 80, 50), "Unpause"))
             {
@@ -56,13 +56,15 @@ public class PauseMenu : MonoBehaviour {
     {
         Time.timeScale = 1;
         paused = p_Pressed = false;
+        localMaster.GetComponent<HUD>().CyclePlaying();
     }
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown("p") && !localInventory.GetComponent<InventoryMenu>().GetInventoryStatus())
+        if (Input.GetKeyDown("p") && !localMaster.GetComponent<InventoryMenu>().GetInventoryStatus())
         {
             PauseGame(true);
+            localMaster.GetComponent<HUD>().CyclePlaying();
         }
 	}
 }

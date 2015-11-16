@@ -21,8 +21,10 @@ public class Room : MonoBehaviour {
         baseTile.transform.parent = this.transform;//= nDoor.transform.parent = sDoor.transform.parent = eDoor.transform.parent = this.transform;
         //eDest.transform.parent = sDest.transform.parent = nDest.transform.parent = this.transform;
         //ARRAY SIZE = NUMBER OF FOLDERS IN Resources/map
-        string[] tilesets = new string[1];
+        string[] tilesets = new string[3];
         tilesets[0] = "map/desert/";
+        tilesets[1] = "map/dungeon/";
+        tilesets[2] = "map/grass/";
         int tsIndex= Random.Range(0, tilesets.Length);
         tileset = tilesets[tsIndex];
 

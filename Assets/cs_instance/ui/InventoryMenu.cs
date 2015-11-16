@@ -4,14 +4,20 @@ using System.IO;
 
 public class InventoryMenu : MonoBehaviour {
     bool inventory;
-    GameObject localPause;
-    string dataRaw, playerName, activeWeapon, path;
+    GameObject localMaster;
+    string dataRaw, activeWeapon, path;
+    string playerName;
     string [] items, data;
     Texture activeTexture;
 	// Use this for initialization
+
+    public string getName()
+    {
+        return playerName;
+    }
 	void Start () {
         inventory = false;
-        localPause = GameObject.Find("_Master");
+        localMaster = GameObject.Find("_Master");
         items = new string[10];
         path = "Assets/Resources/SaveFiles/Save.txt";
         if (File.Exists(path)){
@@ -41,7 +47,8 @@ public class InventoryMenu : MonoBehaviour {
 	
     void ShowInventory()
     {
-        localPause.GetComponent<PauseMenu>().PauseGame(false);
+        localMaster.GetComponent<HUD>().CyclePlaying();
+        localMaster.GetComponent<PauseMenu>().PauseGame(false);
     }
 
     public void AddItem(string newItem)
@@ -83,7 +90,7 @@ public class InventoryMenu : MonoBehaviour {
 
     void OnGUI()
     {
-        if (localPause.GetComponent<PauseMenu>().GetPauseStatus() && inventory && !localPause.GetComponent<PauseMenu>().Get_P_Pressed())
+        if (localMaster.GetComponent<PauseMenu>().GetPauseStatus() && inventory && !localMaster.GetComponent<PauseMenu>().Get_P_Pressed())
         {
             GUI.Box(new Rect(10, 10, 400, 400), playerName + "'s Inventory");
             GUI.Label(new Rect(20, 40, 200, 20), "Active Weapon:");
@@ -104,14 +111,14 @@ public class InventoryMenu : MonoBehaviour {
             {
                 print("Unpause clicked");
                 inventory = false;
-                localPause.GetComponent<PauseMenu>().UnPauseGame();
+                localMaster.GetComponent<PauseMenu>().UnPauseGame();
             }
         }
     }
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("i") && !localPause.GetComponent<PauseMenu>().Get_P_Pressed())
+        if (Input.GetKeyDown("i") && !localMaster.GetComponent<PauseMenu>().Get_P_Pressed())
         {
             inventory = true;
             ShowInventory();
