@@ -15,7 +15,7 @@ public class Map : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        size = 80;
+        size = 5;
         roomGrid = new GameObject[size, size];
         
         //grab player object
