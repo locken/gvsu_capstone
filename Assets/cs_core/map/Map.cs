@@ -6,16 +6,33 @@ public class Map : MonoBehaviour {
     ArrayList rooms;
     GameObject[,] roomGrid;
     Dictionary<string, GameObject> roomDict = new Dictionary<string, GameObject>();
-   //Dictionary<int, obj> door connections. each door will be assigned a unique index, lookup its destination obj.
-   
+    //Dictionary<int, obj> door connections. each door will be assigned a unique index, lookup its destination obj.
 
-    int seed; 
-    int size;
+    int[] roomsL, roomsH;
+    int size, index, seed;
     GameObject player;
+
+    public int getMapDimension()
+    {
+        return size;
+    }
+
+    public int getRoomsL(int i)
+    {
+        return roomsL[i];
+    }
+
+    public int getRoomsH(int i)
+    {
+        return roomsH[i];
+    }
 
     // Use this for initialization
     void Start () {
         size = 5;
+        index = 0;
+        roomsH = new int[size * size];
+        roomsL = new int[size * size];
         roomGrid = new GameObject[size, size];
         
         //grab player object
@@ -58,7 +75,8 @@ public class Map : MonoBehaviour {
 		string doorDir = splitString[1]; 
 		GameObject src = roomDict[roomName];
 		GameObject dest = roomDict["room4"];
-		PlacePlayer(dest.transform.position);
+        Vector3 newPos = new Vector3(dest.transform.position.x, dest.transform.position.y, -1);
+		PlacePlayer(newPos);
     }
 
     GameObject GenerateRoom(int col, int row, int roomNum)
@@ -72,7 +90,9 @@ public class Map : MonoBehaviour {
         Room r = room.GetComponent<Room>();
 		r.createDoors();
 		roomDict.Add(room.transform.name, room);
-       	
+        roomsH[index] = r.getHeight();
+        roomsL[index] = r.getLength();
+        index++;
         return room;
     }
 

@@ -45,6 +45,7 @@ public class player : MonoBehaviour {
         playerCollider = plyr.AddComponent<BoxCollider2D>();
         playerCollider.transform.parent = plyr.transform;
         plyrRb = plyr.AddComponent<Rigidbody2D>();
+        plyr.transform.localPosition = new Vector3(0,0,-1);
 		plyrRb.gravityScale = 0;
 		plyrRb.isKinematic = false;
 		plyrRb.drag = 10;

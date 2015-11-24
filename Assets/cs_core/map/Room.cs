@@ -108,12 +108,12 @@ public class Room : MonoBehaviour {
         }
     }
 
-    int getLength()
+    public int getLength()
     {
         return length;
     }
 
-    int getHeight()
+    public int getHeight()
     {
         return height;
     }
