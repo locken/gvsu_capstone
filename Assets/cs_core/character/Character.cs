@@ -9,11 +9,11 @@ using UnityEngine;
 using System.Collections;
 
 public abstract class Character : MonoBehaviour{
-	public int Level{ get; set;}
-	public int Health{ get; set;}
-	public float Speed{ get; set;}
-	public int XP{ get; set;}
-	public string CharName{ get; set;}
+	public abstract int Level{ get; set;}
+	public abstract int Health{ get; set;}
+	public abstract float Speed{ get; set;}
+	public abstract int XP{ get; set;}
+	public abstract string CharName{ get; set;}
     public ArrayList abilities;
 
 	//Need to create inventory and ability classes

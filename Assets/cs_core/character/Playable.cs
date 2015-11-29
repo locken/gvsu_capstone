@@ -9,7 +9,7 @@ public class Playable : Character {
 	private float m_speed;
 	private string m_charName;
     public string skill_name;
-    /*
+    
 	public override int Level{
 		get{
 			return m_level;
@@ -53,7 +53,7 @@ public class Playable : Character {
 		set{
 			m_charName = value;
 		}
-	}*/
+	}
 
     // Use this for initialization
     void Start () {

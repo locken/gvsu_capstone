@@ -49,6 +49,7 @@ public class player : MonoBehaviour {
 		plyrRb.gravityScale = 0;
 		plyrRb.isKinematic = false;
 		plyrRb.drag = 10;
+        plyr.AddComponent<Fireball>();
         GameObject localMaster = GameObject.Find("Main Camera");
         //localMaster.AddComponent<CameraMovement>();
         localMaster.GetComponent<CameraMovement>().SetPlayer(plyr);
@@ -126,24 +127,9 @@ public class player : MonoBehaviour {
             }
         }
 
-    }
-
-    /*void ApplyDamage(Collider2D other)
-    {
-        Debug.Log("collision");
-        if (!enemiesHit.Contains(other.gameObject))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("object not hit");
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                Debug.Log("object is enemy");
-                AI_Attributes enemy = other.gameObject.GetComponent("AI_Attributes") as AI_Attributes;
-                int health = enemy.Health;
-                Debug.Log(health);
-                enemiesHit.Add(other.gameObject);
-                Debug.Log(rightHandItem.weaponDamage);
-                Debug.Log(enemy.Health);
-            }
+            plyr.GetComponent<Fireball>().cast();
         }
-    }*/
+    }
 }
