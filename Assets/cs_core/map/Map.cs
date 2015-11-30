@@ -6,7 +6,7 @@ public class Map : MonoBehaviour {
     ArrayList rooms;
     GameObject[,] roomGrid;
     Dictionary<string, GameObject> roomDict = new Dictionary<string, GameObject>();
-    //Dictionary<int, obj> door connections. each door will be assigned a unique index, lookup its destination obj.
+    Dictionary<string, string> doorDict = new Dictionary<string, string>();// door connections. each door will be assigned a unique index, lookup its destination obj.
 
     int[] roomsL, roomsH;
     int size, index, seed;
@@ -29,7 +29,7 @@ public class Map : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        size = 5;
+        size = 3;
         index = 0;
         roomsH = new int[size * size];
         roomsL = new int[size * size];
@@ -47,7 +47,35 @@ public class Map : MonoBehaviour {
         int arrayCol = 0, arrayRow = 0, currentRoom = 0;
 		for(int i=0; i<size * size; i++)
         {
-            roomGrid[arrayCol, arrayRow] = GenerateRoom(arrayCol, arrayRow, currentRoom);
+            int dirIndex = 0;
+            string[] directions = new string[4];
+
+
+            if (arrayRow != size - 1)
+            {
+                directions[dirIndex] = "north";
+                dirIndex++;
+            }
+            if (arrayCol != size - 1)
+            {
+                directions[dirIndex] = "east";
+                dirIndex++;
+            }
+            if (arrayRow > 0)
+            {
+                directions[dirIndex] = "south";
+                dirIndex++;
+            }
+            if (arrayCol > 0)
+            { 
+                directions[dirIndex] = "west";
+            }
+            
+
+            roomGrid[arrayCol, arrayRow] = GenerateRoom(arrayCol, arrayRow, currentRoom, directions);
+
+            createDestinations(directions, i);
+
             arrayCol++;
             if (arrayCol == size) {
                 arrayCol = 0;
@@ -55,9 +83,58 @@ public class Map : MonoBehaviour {
             } 
 			currentRoom = arrayRow * size + arrayCol;
         }
-		createEdges();
+		//createEdges();
     }
     
+
+    public void createDestinations(string[] directions, int roomNum)
+    {
+        Debug.Log("creating stuff for roomdict room: " + roomNum);
+        foreach(string dir in directions)
+        {
+            if (dir != null)
+            {
+
+            
+            string destDoor = "room";
+            int destRoom = roomNum;
+            string destDir = "";
+            string srcDoor = "room" + roomNum.ToString();
+            switch (dir)
+            {
+                case "north":
+                    destRoom += size;
+                    destDir = " south";
+                    srcDoor += " north";
+                    break;
+                case "east":
+                    destRoom += 1;
+                    destDir = " west";
+                    srcDoor += " east";
+                    break;
+                case "south":
+                    destRoom -= size;
+                    destDir = " north";
+                    srcDoor += " south";
+                    break;
+                case "west":
+                    destRoom -= 1;
+                    destDir = " east";
+                    srcDoor += " west";
+                    break;
+                default:
+                    break;
+            }
+            destDoor += destRoom.ToString();
+            destDoor += destDir;
+
+            doorDict.Add(srcDoor, destDoor);
+            }
+        }
+    }
+
+
+
     public void PlacePlayer(Vector3 dest)
     {
         player.transform.position = dest;
@@ -74,12 +151,35 @@ public class Map : MonoBehaviour {
 		string roomName = splitString[0];
 		string doorDir = splitString[1]; 
 		GameObject src = roomDict[roomName];
-		GameObject dest = roomDict["room4"];
-        Vector3 newPos = new Vector3(dest.transform.position.x, dest.transform.position.y, -1);
+        string destStr = doorDict[obj.transform.name];
+        GameObject dest = GameObject.Find(destStr);
+
+        float offset = 1.75f;
+        float xDest = dest.transform.position.x;
+        float yDest = dest.transform.position.y;
+        switch(doorDir)
+        {
+            case "north":
+                yDest += offset;
+                break;
+            case "east":
+                xDest += offset;
+                break;
+            case "south":
+                yDest -= offset;
+                break;
+            case "west":
+                xDest -= offset;
+                break;
+            default:
+                break;
+        }
+
+        Vector3 newPos = new Vector3(xDest, yDest, -1);
 		PlacePlayer(newPos);
     }
 
-    GameObject GenerateRoom(int col, int row, int roomNum)
+    GameObject GenerateRoom(int col, int row, int roomNum, string[] directions)
     {
         GameObject room = new GameObject();
         room.transform.name = "room" + roomNum.ToString();
@@ -88,7 +188,7 @@ public class Map : MonoBehaviour {
 		room.transform.position = new Vector3(col * 40, row * 40);
         room.AddComponent<Room>();
         Room r = room.GetComponent<Room>();
-		r.createDoors();
+		r.createDoors(directions);
 		roomDict.Add(room.transform.name, room);
         roomsH[index] = r.getHeight();
         roomsL[index] = r.getLength();

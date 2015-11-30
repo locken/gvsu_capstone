@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MainMenuNav : MonoBehaviour {
     public string stringToEdit;
+    int screenW = Screen.width;
+    int screenH = Screen.height;
     // Use this for initialization
     void Start () {
 	
@@ -10,17 +12,20 @@ public class MainMenuNav : MonoBehaviour {
     
     void OnGUI()
     {
-        if (GUI.Button(new Rect(185, 100, 80, 50), "Start New"))
+        GUI.contentColor = Color.black;
+        GUI.Label(new Rect(screenW / 3, screenH / 20, screenW / 2, screenH / 10), "<NULL> Object 'Name' not found");
+        GUI.contentColor = Color.white;
+        if (GUI.Button(new Rect(screenW / 3, screenH / 9, screenW / 4, screenH / 14), "Start New"))
         {
             print("Start clicked");
             Application.LoadLevel(2);
         }
-        if (GUI.Button(new Rect(185, 150, 80, 50), "Options"))
+        if (GUI.Button(new Rect(screenW / 3, screenH / 4, screenW / 4, screenH / 14), "Options"))
         {
             print("Start clicked");
             Application.LoadLevel(1);
         }
-        if (GUI.Button(new Rect(200, 200, 50, 50), "Exit"))
+        if (GUI.Button(new Rect(screenW / 3, screenH / 3, screenW / 4, screenH / 14), "Exit"))
         {
             print("Start clicked");
             Application.Quit();

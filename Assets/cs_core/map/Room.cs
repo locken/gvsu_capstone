@@ -118,19 +118,19 @@ public class Room : MonoBehaviour {
         return height;
     }
 
-	public void createDoors() 
+	public void createDoors(string[] directions) 
 	{
-		string[] directions = new string[4] {"north", "south", "east", "west"};
-		
-
 		foreach(string dir in directions) 
 		{
-			GameObject door = new GameObject();
-			door.transform.name = this.transform.name + " " + dir;
-			door.transform.parent = this.transform;
-			Door d = (Door)door.AddComponent<Door>();
-			doors.Add (dir, d.SetDoorActive(dir, getLength(), getHeight()));
-		}
+            if (dir != null)
+            {
+			    GameObject door = new GameObject();
+			    door.transform.name = this.transform.name + " " + dir;
+			    door.transform.parent = this.transform;
+			    Door d = (Door)door.AddComponent<Door>();
+			    doors.Add (dir, d.SetDoorActive(dir, getLength(), getHeight()));
+            }
+        }
 	}
 
    

@@ -69,7 +69,15 @@ public class playermovement : MonoBehaviour {
                 speed += 1f;
 			movementVector.y = -1;;
         }
-        if(!(Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.S)))
+        if (!(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+        {
+            movementVector.x = 0;
+        }
+        if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)))
+        {
+            movementVector.y = 0;
+        }
+        if (!(Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.S)))
         {
             speed = 0;
             movementVector.x = 0;
