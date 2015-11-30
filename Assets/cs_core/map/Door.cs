@@ -30,16 +30,16 @@ public class Door : MonoBehaviour {
         switch (trueDir)
         {
 		case "north":
-            doorPos = new Vector3(doorX, doorY + width / 2);
+            doorPos = new Vector3(doorX, (doorY + width / 2) - 1);
             break;
         case "south":
-            doorPos = new Vector3(doorX, doorY - width / 2);
+            doorPos = new Vector3(doorX, (doorY - width / 2) + 1);
             break;
         case "east":
-            doorPos = new Vector3(doorX + length / 2, doorY);
+            doorPos = new Vector3((doorX + length / 2) - 1, doorY);
             break;
         case "west":
-			doorPos = new Vector3(doorX - length / 2 , doorY);
+			doorPos = new Vector3((doorX - length / 2) + 1, doorY);
             break;
 		default:
 			doorPos = new Vector3(0,0);
