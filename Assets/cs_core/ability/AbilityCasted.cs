@@ -35,7 +35,7 @@ public class AbilityCasted : MonoBehaviour {
             int health = enemy.Health;
             Debug.Log(health);
             enemy.Health = health - damage;
-            Debug.Log("AI current Health: " + enemy.Health);
+            Debug.Log(other.gameObject.name + " health: " + enemy.Health);
         }
         if (!other.gameObject.CompareTag("Player"))
         {
