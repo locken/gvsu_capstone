@@ -43,6 +43,7 @@ public class PlayerInfo : MonoBehaviour {
         {
             StartNewGame();
         }
+        GUI.contentColor = Color.black;
         GUI.Label(new Rect(screenW / 5, (screenH - (screenH / 2)) / 2, screenW / 2, screenH / 10), "Controls:");
         GUI.Label(new Rect(screenW / 5, (screenH - (screenH / 3)) / 2, screenW / 2, screenH / 10), "Use w, s, a, d to face up, down, left right");
         GUI.Label(new Rect(screenW / 5, (screenH - (screenH / 4)) / 2, screenW / 2, screenH / 10), "Use arrow keys to move up, down, left right");
