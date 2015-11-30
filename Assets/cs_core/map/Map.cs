@@ -29,7 +29,7 @@ public class Map : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        size = 5;
+        size = 3;
         index = 0;
         roomsH = new int[size * size];
         roomsL = new int[size * size];
@@ -47,7 +47,41 @@ public class Map : MonoBehaviour {
         int arrayCol = 0, arrayRow = 0, currentRoom = 0;
 		for(int i=0; i<size * size; i++)
         {
-            roomGrid[arrayCol, arrayRow] = GenerateRoom(arrayCol, arrayRow, currentRoom);
+            int dirIndex = 0;
+            string[] directions = new string[4];
+
+
+            if (arrayRow != size)
+            {
+                directions[dirIndex] = "north";
+                dirIndex++;
+            }
+            if (arrayCol != size)
+            {
+                directions[dirIndex] = "east";
+                dirIndex++;
+            }
+            if (arrayRow > 0)
+            {
+                directions[dirIndex] = "south";
+                dirIndex++;
+            }
+            if (arrayCol > 0)
+            { 
+                directions[dirIndex] = "west";
+            }
+            
+            
+            
+
+
+
+            roomGrid[arrayCol, arrayRow] = GenerateRoom(arrayCol, arrayRow, currentRoom, directions);
+
+           
+
+            createDestinations(directions);
+
             arrayCol++;
             if (arrayCol == size) {
                 arrayCol = 0;
@@ -55,9 +89,17 @@ public class Map : MonoBehaviour {
             } 
 			currentRoom = arrayRow * size + arrayCol;
         }
-		createEdges();
+		//createEdges();
     }
     
+
+    public void createDestinations(string[] directions)
+    {
+        
+    }
+
+
+
     public void PlacePlayer(Vector3 dest)
     {
         player.transform.position = dest;
@@ -79,7 +121,7 @@ public class Map : MonoBehaviour {
 		PlacePlayer(newPos);
     }
 
-    GameObject GenerateRoom(int col, int row, int roomNum)
+    GameObject GenerateRoom(int col, int row, int roomNum, string[] directions)
     {
         GameObject room = new GameObject();
         room.transform.name = "room" + roomNum.ToString();
@@ -88,7 +130,7 @@ public class Map : MonoBehaviour {
 		room.transform.position = new Vector3(col * 40, row * 40);
         room.AddComponent<Room>();
         Room r = room.GetComponent<Room>();
-		r.createDoors();
+		r.createDoors(directions);
 		roomDict.Add(room.transform.name, room);
         roomsH[index] = r.getHeight();
         roomsL[index] = r.getLength();

@@ -5,13 +5,13 @@ public class Door : MonoBehaviour {
 	string name;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () {	
 	}
 
 
 	public GameObject SetDoorActive(string direction, int length, int width)
     {
+        Debug.Log(direction);
         //GameObject localActive = new GameObject();
         //activeDoor;
 

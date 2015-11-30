@@ -60,9 +60,9 @@ public class GenEnemies : MonoBehaviour {
         {
             localDimension = localMap.GetComponent<Map>().getMapDimension();
             enemyArray = new GameObject[3 * (localDimension * localDimension)];
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < localDimension; i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < localDimension; j++)
                 {
                     int localRH = localMap.GetComponent<Map>().getRoomsH(roomIndex);
                     int localRL = localMap.GetComponent<Map>().getRoomsL(roomIndex);
