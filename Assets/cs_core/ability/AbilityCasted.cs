@@ -29,15 +29,20 @@ public class AbilityCasted : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            AI_Attributes enemy = other.gameObject.GetComponent("AI_Attributes") as AI_Attributes;
-            int health = enemy.Health;
-            Debug.Log(health);
-            enemy.Health = health - damage;
-            Debug.Log(other.gameObject.name + " health: " + enemy.Health);
-        }
-        if (!other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag ("Enemy")) {
+			AI_Attributes enemy = other.gameObject.GetComponent ("AI_Attributes") as AI_Attributes;
+			int health = enemy.Health;
+			Debug.Log (health);
+			enemy.Health = health - damage;
+			Debug.Log (other.gameObject.name + " health: " + enemy.Health);
+		} else if (other.gameObject.name == "Right Hand") {
+			AI_Attributes enemy = other.gameObject.transform.parent.GetComponent ("AI_Attributes") as AI_Attributes;
+			int health = enemy.Health;
+			Debug.Log (health);
+			enemy.Health = health - damage;
+			Debug.Log (other.gameObject.name + " health: " + enemy.Health);
+		}
+		if (!other.gameObject.CompareTag("Player"))
         {
             Destroy(this.gameObject);
         }

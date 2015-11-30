@@ -15,7 +15,7 @@ public class damage : MonoBehaviour {
     {
         if (!enemiesHit.Contains(other.gameObject))
         {
-            if (other.gameObject.CompareTag("Enemy"))
+			if (other.gameObject.CompareTag("Enemy"))
             {
                 ApplyDamage(other);
             }

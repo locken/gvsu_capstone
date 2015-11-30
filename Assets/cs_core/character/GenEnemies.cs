@@ -52,6 +52,7 @@ public class GenEnemies : MonoBehaviour {
 
 		//add rightHand to player
 		GameObject rightHand = new GameObject();
+		//rightHand.tag = "RightHand";
 		rightHand.name = "Right Hand";
 		rightHand.transform.parent = enemy.transform;
 		rightHandItem = rightHand.AddComponent<basic_sword>();
@@ -129,6 +130,7 @@ public class GenEnemies : MonoBehaviour {
 						wpnx = wpnx - ((2 / 3f) / 150f);
 						enemies.GetComponent<Attack>().rightHand.transform.localPosition = new Vector3 (wpnx, 18 / 24f, 0f);
 					}
+
 				} else {
 					wpnz = 0;
 					enemies.GetComponent<Attack>().rightHand.transform.localRotation = Quaternion.LookRotation (new Vector3 (0, 0, wpnz), Vector3.up);
@@ -136,11 +138,15 @@ public class GenEnemies : MonoBehaviour {
 					enemies.GetComponent<Attack>().rightHand.transform.localPosition = new Vector3 (wpnx, 18 / 24f, 0f);
 					//rightHand.SendMessage ("ClearArray");
 					enemies.GetComponent<Attack>().rightHand.SetActive (false);
+					GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Playable>().Health--;
+					Debug.Log ("player health: " + GameObject.FindGameObjectsWithTag ("Player") [0].GetComponent<Playable> ().Health);
 				}
+
 			} //else if(Vector3.Distance (enemies.transform.position, target.position) < 4f){ 
 
 				//enemies.GetComponent<Fireball>().cast();
 			//}
 		}
-	}
+
+		}
 }
