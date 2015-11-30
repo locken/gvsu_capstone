@@ -12,7 +12,7 @@ public class FlockingAlgorithm : MonoBehaviour {
 	void Start()
 	{
 		CircleCollider2D collider = GetComponent<CircleCollider2D> ();
-		collider.radius = seperation;
+		//collider.radius = seperation;
 		//AI_Attributes.Engaged = false; 
 		collision = false;
 		movementScript = new movements ();
@@ -36,19 +36,15 @@ public class FlockingAlgorithm : MonoBehaviour {
 			}
 			if(other != null && other.gameObject != null && other.gameObject.tag == "Player")
 			{
-				Debug.Log("We found him.");
-				AI_Attributes enemyAttributes = other.gameObject.GetComponent<AI_Attributes>();
-				movementScript.playerCollision = true;
-				GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
-
-				movementScript.collisionRight = this.transform.position.x > player.transform.position.x;
-				movementScript.collisionUp = this.transform.position.y > player.transform.position.y;
+				//Debug.Log("Gerad!!!! movementScript.playerCollision1: " + movementScript.playerCollision);
+				//GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
 				//enemyAttributes.Engaged = true;
 				//enemyAttributes.Health -= 10;
 				//if(enemyAttributes.Health <= 0){
 				//	Destroy(enemyAttributes.gameObject);
 				//}
 				//Debug.Log(other.name + ": " + enemyAttributes.Health);
+
 			}
 		}catch(MissingReferenceException ex){
 			
@@ -83,7 +79,7 @@ public class FlockingAlgorithm : MonoBehaviour {
 	}
 
 	void OnCollisionExit2D(Collision2D  other) {
-		movementScript.collision = false;
-		Debug.Log ("Left: " + other.gameObject.tag);
+		//movementScript.collision = false;
+		//Debug.Log ("Left: " + other.gameObject.tag);
 	}
 }
