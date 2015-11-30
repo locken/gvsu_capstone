@@ -25,6 +25,7 @@ public class GenEnemies : MonoBehaviour {
         enemy.AddComponent<movements>();
         enemy.AddComponent<FlockingAlgorithm>();
         enemy.AddComponent<Rigidbody2D>();
+        enemy.AddComponent<AI_Attributes>();
         enemy.GetComponent<FlockingAlgorithm>().seperation = 1;
         enemy.GetComponent<movements>().speed = UnityEngine.Random.Range(5, 15);
         enemySprite = enemy.AddComponent<SpriteRenderer>();
