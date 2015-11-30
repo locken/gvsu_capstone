@@ -122,7 +122,6 @@ public class GenEnemies : MonoBehaviour {
 		
 			attack = true;
 			if (Vector3.Distance (enemies.transform.position, target.position) < 2f) {
-				Debug.Log ("Distance " + Vector3.Distance (enemies.transform.position, target.position));
 
 				enemies.GetComponent<Attack>().rightHand.SetActive(true);
 				if (wpnz < 15) {
