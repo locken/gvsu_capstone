@@ -59,6 +59,7 @@ public class Playable : Character {
     void Start () {
 		m_level = 1;
 		m_health = 100;
+        m_xp = 0;
 
         abilities = new ArrayList();
         GameObject go = new GameObject();
@@ -70,6 +71,10 @@ public class Playable : Character {
 
 	// Update is called once per frame
 	void Update () {
-	
+        if (m_xp > 99)
+        {
+            m_level++;
+            m_xp = m_xp % 100;
+        }
 	}
 }
