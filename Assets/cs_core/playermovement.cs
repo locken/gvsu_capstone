@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class movement : MonoBehaviour {
+public class playermovement : MonoBehaviour {
 
     public float speed, maxspeed;
     public Quaternion rot;

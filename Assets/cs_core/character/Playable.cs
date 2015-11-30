@@ -66,11 +66,6 @@ public class Playable : Character {
        
         
         //go.destroy();
-        abilities.Add(f);
-        Ability temp = (Ability)abilities[0];
-        temp.cast();
-        f.cast();
-    
 	}
 
 	// Update is called once per frame

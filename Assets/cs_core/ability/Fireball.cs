@@ -27,7 +27,7 @@ public class Fireball : Ability
         CircleCollider2D cc = obj.AddComponent<CircleCollider2D>();
         cc.isTrigger = true;
         Quaternion rot;
-        int direction = gameObject.GetComponent<movement>().direction;
+        int direction = gameObject.GetComponent<playermovement>().direction;
         float x = 0, y = 1;
         if(direction == 1)
         {
@@ -54,7 +54,7 @@ public class Fireball : Ability
             rot = Quaternion.LookRotation(new Vector3(0, 0, 0), Vector3.up);
         }
         temp.setStats(damage, id, x, y, rot);
-        //temp.setStart(gameObject.transform.position.x, gameObject.transform.position.y + 1);
+        temp.setStart(gameObject);
         //set cooldown
         return true;
     }

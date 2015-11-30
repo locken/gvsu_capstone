@@ -19,7 +19,7 @@ public class AbilityCasted : MonoBehaviour {
 
     public void setStart(GameObject other)
     {
-        transform.position = other.transform.position;
+        gameObject.transform.position = other.transform.position;
     }
 	
 	// Update is called once per frame
@@ -36,10 +36,8 @@ public class AbilityCasted : MonoBehaviour {
             Debug.Log(health);
             enemy.Health = health - damage;
             Debug.Log("AI current Health: " + enemy.Health);
-            Destroy(gameObject);
         }
-
-        if (!other.gameObject.CompareTag("Item"))
+        if (!other.gameObject.CompareTag("Player"))
         {
             Destroy(this.gameObject);
         }

@@ -37,8 +37,9 @@ public class player : MonoBehaviour {
         plyr = new GameObject();
         this.transform.parent = plyr.transform;
         plyr.name = "Player";
+        plyr.tag = "Player";
         plyrStats = plyr.AddComponent<Playable>();
-        plyr.AddComponent<movement>();
+        plyr.AddComponent<playermovement>();
         playerSprite = plyr.AddComponent<SpriteRenderer>();
         spriteHolder = Resources.LoadAll("pc");
         playerSprite.sprite = (Sprite)spriteHolder[1];
