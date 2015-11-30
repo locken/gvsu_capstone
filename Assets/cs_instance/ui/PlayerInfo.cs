@@ -7,9 +7,12 @@ public class PlayerInfo : MonoBehaviour {
     public string stringToEdit;
     int screenW = Screen.width;
     int screenH = Screen.height;
+    GameObject localPlayer;
+    bool afterStart;
 
     // Use this for initialization
     void Start () {
+        afterStart = true;
         stringToEdit = "Enter your name";
     }
 
@@ -21,11 +24,11 @@ public class PlayerInfo : MonoBehaviour {
         {
             Directory.CreateDirectory("Assets/Resources/SaveFiles");
         }
-
+        //localPlayer.GetComponent<Playable>().CharName = stringToEdit;
         System.IO.File.WriteAllText(path, stringToEdit + "\n" + DateTime.Now.ToString() + "\n");
         System.IO.File.AppendAllText(path, "Level: 1\n");
         System.IO.File.AppendAllText(path, "Health: 100\n");
-        System.IO.File.AppendAllText(path, "Magic: 50\n");
+        System.IO.File.AppendAllText(path, "XP: 0\n");
         System.IO.File.AppendAllText(path, "Active Weapon: basic_sword\n");
         System.IO.File.AppendAllText(path, "Inventory: \n basic_sword \n empty \n empty \n empty \n empty");
         Application.LoadLevel(3);
@@ -55,6 +58,10 @@ public class PlayerInfo : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
-	}
+        if (afterStart)
+        {
+            localPlayer = GameObject.Find("Player");
+            afterStart = false;
+        }
+    }
 }

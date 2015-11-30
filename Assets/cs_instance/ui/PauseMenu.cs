@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.IO;
 
 public class PauseMenu : MonoBehaviour {
-    bool paused, p_Pressed;
-    GameObject localMaster;
+    bool paused, p_Pressed, afterStart;
+    GameObject localMaster, localPlayer;
     // Use this for initialization
     void Start () {
         paused = p_Pressed = false;
+        afterStart = true;
         localMaster = GameObject.Find("_Master");
     }
 
@@ -33,17 +36,30 @@ public class PauseMenu : MonoBehaviour {
         {
             if (GUI.Button(new Rect(200, 100, 80, 50), "Unpause"))
             {
-                print("Unpause clicked");
+                //print("Unpause clicked");
                 UnPauseGame();
             }
             if (GUI.Button(new Rect(200, 150, 80, 50), "Save Game"))
             {
-                print("Save clicked");
+                string path = "Assets/Resources/SaveFiles/Save.txt";
+                //create Folder   
+                if (!Directory.Exists("Assets/Resources/SaveFiles"))
+                {
+                    Directory.CreateDirectory("Assets/Resources/SaveFiles");
+                }
+                string stringToEdit = localPlayer.GetComponent<Playable>().CharName;
+                System.IO.File.WriteAllText(path, stringToEdit + "\n" + DateTime.Now.ToString() + "\n");
+                System.IO.File.AppendAllText(path, "Level: " + localPlayer.GetComponent<Playable>().Level.ToString() + "\n");
+                System.IO.File.AppendAllText(path, "Health: " + localPlayer.GetComponent<Playable>().Health.ToString() + "\n");
+                System.IO.File.AppendAllText(path, "XP: " + localPlayer.GetComponent<Playable>().XP.ToString() + "\n");
+                System.IO.File.AppendAllText(path, "Active Weapon: basic_sword\n");
+                System.IO.File.AppendAllText(path, "Inventory: \n basic_sword \n empty \n empty \n empty \n empty");
+                //print("Save clicked");
 
             }
             if (GUI.Button(new Rect(200, 200, 80, 50), "Main Menu"))
             {
-                print("Main Menu clicked");
+                //print("Main Menu clicked");
                 UnPauseGame();
                 Application.LoadLevel(0);
             }
@@ -65,6 +81,11 @@ public class PauseMenu : MonoBehaviour {
         {
             PauseGame(true);
             localMaster.GetComponent<HUD>().CyclePlaying();
+        }
+        if (afterStart)
+        {
+            afterStart = false;
+            localPlayer = GameObject.Find("Player");
         }
 	}
 }

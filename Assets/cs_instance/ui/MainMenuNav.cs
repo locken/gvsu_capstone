@@ -17,17 +17,23 @@ public class MainMenuNav : MonoBehaviour {
         GUI.contentColor = Color.white;
         if (GUI.Button(new Rect(screenW / 3, screenH / 9, screenW / 4, screenH / 14), "Start New"))
         {
-            print("Start clicked");
+            //print("Start clicked");
             Application.LoadLevel(2);
         }
-        if (GUI.Button(new Rect(screenW / 3, screenH / 4, screenW / 4, screenH / 14), "Options"))
+        if (GUI.Button(new Rect(screenW / 3, screenH / 4, screenW / 4, screenH / 14), "Load"))
         {
-            print("Start clicked");
+
+            //print("Start clicked");
+            Application.LoadLevel(3);
+        }
+        if (GUI.Button(new Rect(screenW / 3, screenH / 3, screenW / 4, screenH / 14), "Options"))
+        {
+            //print("Start clicked");
             Application.LoadLevel(1);
         }
-        if (GUI.Button(new Rect(screenW / 3, screenH / 3, screenW / 4, screenH / 14), "Exit"))
+        if (GUI.Button(new Rect(screenW / 3, screenH / 2, screenW / 4, screenH / 14), "Exit"))
         {
-            print("Start clicked");
+            //print("Start clicked");
             Application.Quit();
         }
     }

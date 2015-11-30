@@ -9,6 +9,7 @@ public class Playable : Character {
 	private float m_speed;
 	private string m_charName;
     public string skill_name;
+    GameObject localHUD;
     
 	public override int Level{
 		get{
@@ -60,7 +61,7 @@ public class Playable : Character {
 		m_level = 1;
 		m_health = 100;
         m_xp = 0;
-
+        localHUD = GameObject.Find("_Master");
         abilities = new ArrayList();
         GameObject go = new GameObject();
         Ability f = (Ability)go.AddComponent<Fireball>();// go.AddComponent<Fireball>();
@@ -75,6 +76,12 @@ public class Playable : Character {
         {
             m_level++;
             m_xp = m_xp % 100;
+        }
+        if (m_health < 1)
+        {
+            //Debug.Log("Game Over");
+            localHUD.GetComponent<HUD>().CycleGameOver();
+            
         }
 	}
 }

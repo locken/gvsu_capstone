@@ -128,7 +128,12 @@ public class Room : MonoBehaviour {
 			    door.transform.name = this.transform.name + " " + dir;
 			    door.transform.parent = this.transform;
 			    Door d = (Door)door.AddComponent<Door>();
-			    doors.Add (dir, d.SetDoorActive(dir, getLength(), getHeight()));
+                SpriteRenderer doorMat = door.AddComponent<SpriteRenderer>();
+                Sprite doorSprite = Resources.Load<Sprite>(tileset + "floorMat");
+                doorMat.sprite = doorSprite;
+                doors.Add (dir, d.SetDoorActive(dir, getLength(), getHeight()));
+                //oor.GetComponent<SpriteRenderer>() = doorMat;
+
             }
         }
 	}

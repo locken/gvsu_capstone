@@ -18,7 +18,7 @@ public class Door : MonoBehaviour {
 		BoxCollider2D bc = gameObject.AddComponent<BoxCollider2D>();
 		bc.isTrigger = true;
 
-		gameObject.AddComponent<SpriteRenderer>();
+		//gameObject.AddComponent<SpriteRenderer>();
 
         Vector3 doorPos = new Vector3();
 
@@ -47,8 +47,11 @@ public class Door : MonoBehaviour {
         }
 
 		gameObject.transform.position = doorPos;
-      
-		return gameObject;
+
+        SpriteRenderer doorMat = gameObject.AddComponent<SpriteRenderer>();
+        Sprite doorSprite = Resources.Load<Sprite>("map/dungeon/floorMat");
+        gameObject.GetComponent<SpriteRenderer>().sprite = doorSprite;
+        return gameObject;
         //Add sprite later -------------------------------------------------------------------------------------------------------------------------
 
         //activeDoor.transform.position = doorPos;
