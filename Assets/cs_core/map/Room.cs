@@ -59,7 +59,7 @@ public class Room : MonoBehaviour {
 
         
         //placing base tile in bottom left corner of our room.
-        baseTile.transform.localPosition = new Vector3(-length / 2, -height / 2 , 0);
+        baseTile.transform.localPosition = new Vector3(-length / 2, -height / 2 , 0);   
 
         for (int y = 0; y <= height; y++)
         {
