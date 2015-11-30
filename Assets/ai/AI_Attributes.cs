@@ -8,7 +8,9 @@ public class AI_Attributes : AI {
 	private int m_level, m_health, m_xp;
 	private float m_speed;
 	private string m_charName;
-	public bool Engaged{
+    GameObject localMaster, localPlayer;
+    private bool afterStart;
+    public bool Engaged{
 	    get{
 			return Engaged;
 		}
@@ -64,15 +66,25 @@ public class AI_Attributes : AI {
 	
 	// Use this for initialization
 	void Start () {
+        afterStart = true;
 		m_level = 1;
 		m_health = 100;
 		m_xp = 100;
-	}
+        localMaster = GameObject.Find("_Master");
+        localMaster.GetComponent<HUD>().IncrementEnemy();
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		if (m_health <= 0) {
-			Destroy(this.gameObject);
+            localMaster.GetComponent<HUD>().DecrementEnemy();
+            localPlayer.GetComponent<Playable>().XP += 10;
+            Destroy(this.gameObject);
 		}
+        if (afterStart)
+        {
+            afterStart = false;
+            localPlayer = GameObject.Find("Player");
+        }
 	}
 }

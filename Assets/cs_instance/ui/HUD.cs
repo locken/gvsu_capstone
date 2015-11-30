@@ -4,6 +4,7 @@ using System.Collections;
 public class HUD : MonoBehaviour {
     int screenW = Screen.width;
     int screenH = Screen.height;
+    int enemyCount;
     GameObject localMaster;
     bool playing;
     private GUIStyle currentStyle = new GUIStyle();
@@ -11,6 +12,7 @@ public class HUD : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        enemyCount = 0;
         playing = true;
         localMaster = GameObject.Find("_Master");
         hudTexture = new Texture2D(2, 2, TextureFormat.ARGB32, false);
@@ -39,7 +41,7 @@ public class HUD : MonoBehaviour {
         {
             //GUI.contentColor = Color.blue;
             currentStyle.normal.background = hudTexture;
-            GUI.Box(new Rect(0, 0, screenW / 3, screenH / 8), localMaster.GetComponent<InventoryMenu>().getName(), currentStyle);
+            GUI.Box(new Rect(0, 0, screenW / 3, screenH / 6), localMaster.GetComponent<InventoryMenu>().getName(), currentStyle);
             //GUI.contentColor = Color.black;
             GUI.contentColor = Color.red;
             GUI.Label(new Rect(5, screenH / 26, screenW / 10, screenH / 10), "Health:");
@@ -49,12 +51,32 @@ public class HUD : MonoBehaviour {
             currentStyle.normal.background = magicTexture;
             GUI.Label(new Rect(5, screenH / 14, screenW / 10, screenH / 10), "Magic:");
             GUI.Box(new Rect(screenW / 9, screenH / 12, screenW / 5, screenH / 35), "", currentStyle);
+            if (enemyCount > 0) {
+                GUI.Label(new Rect(5, screenH / 9, screenW / 6, screenH / 10), "Enemies left: " + enemyCount.ToString());
+            }
+            else
+            {
+                GUI.Label(new Rect(5, screenH / 9, screenW / 6, screenH / 10), "Enemies left: none, You Win!");
+            }
         }
     }
 
     public void CyclePlaying()
     {
         playing = !playing;
+    }
+
+    public void DecrementEnemy()
+    {
+        if (enemyCount > 0)
+        {
+            enemyCount--;
+        }
+    }
+
+    public void IncrementEnemy()
+    {
+        enemyCount++;
     }
 
     // Update is called once per frame

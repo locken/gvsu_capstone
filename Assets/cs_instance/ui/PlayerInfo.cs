@@ -39,7 +39,7 @@ public class PlayerInfo : MonoBehaviour {
         {
             StartNewGame();
         }
-        if (GUI.Button(new Rect(screenW / 4, (screenH - (screenH / 2)) / 3, screenW / 4, screenH / 10), "Begin Adventure"))
+        if (GUI.Button(new Rect(screenW / 4, (screenH - (screenH / 2)) / 3, screenW / 4, screenH / 14), "Begin Adventure"))
         {
             StartNewGame();
         }

@@ -29,7 +29,7 @@ public class Map : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        size = 3;
+        size = 5;
         index = 0;
         roomsH = new int[size * size];
         roomsL = new int[size * size];

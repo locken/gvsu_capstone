@@ -61,7 +61,7 @@ public class movements : MonoBehaviour
 			}
 			NotTouchingAi = false;
 		} else if (playerCollision) {
-			Debug.Log("PLAYER FOUND");
+			//Debug.Log("PLAYER FOUND");
 			if (collisionRight) {
 				x = 1;
 			} else {
@@ -107,7 +107,7 @@ public class movements : MonoBehaviour
 		transform.rotation = rot;
 		transform.eulerAngles = new Vector3 (0, 0, transform.eulerAngles.z);
 		Vector2 movementVector = new Vector2 (positionVector.x, positionVector.y);
-		Debug.Log ("X: " + positionVector.x + "\nY: " + positionVector.y + "\nSpeed: " + currentSpeed);
+		//Debug.Log ("X: " + positionVector.x + "\nY: " + positionVector.y + "\nSpeed: " + currentSpeed);
 		GetComponent<Rigidbody2D> ().AddForce (movementVector * speed, ForceMode2D.Force);
 		//GetComponent<Rigidbody2D> ().MovePosition (transform.position + transform.forward * Time.deltaTime);
 	}
