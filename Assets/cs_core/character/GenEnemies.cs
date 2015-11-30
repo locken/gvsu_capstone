@@ -6,7 +6,16 @@ public class GenEnemies : MonoBehaviour {
     int enemyCount, roomIndex, localDimension;
     GameObject localMap;
     GameObject[] enemyArray;
+	public Object []spriteHolder;
     bool generate;
+	//right hand variables
+	public GameObject rightHand;
+	public weaponItem rightHandItem;
+	public SpriteRenderer rightSr;
+	public BoxCollider2D rightBc;
+	private float wpnz = 0;
+	private float wpnx = 18 / 24f;
+	private bool attack = false;
     // Use this for initialization
     void Start() {
         generate = true;
@@ -26,6 +35,8 @@ public class GenEnemies : MonoBehaviour {
         enemy.AddComponent<FlockingAlgorithm>();
         enemy.AddComponent<Rigidbody2D>();
         enemy.AddComponent<AI_Attributes>();
+		enemy.AddComponent<Attack> ();
+		spriteHolder = Resources.LoadAll("pc");
         enemy.GetComponent<FlockingAlgorithm>().seperation = 1;
         enemy.GetComponent<movements>().speed = UnityEngine.Random.Range(5, 15);
         enemySprite = enemy.AddComponent<SpriteRenderer>();
@@ -34,9 +45,29 @@ public class GenEnemies : MonoBehaviour {
         enemySprite.sprite = Resources.Load<Sprite>("enemy");
         enemyCount++;
         enemy.name = "enemy" + enemyCount.ToString();
-       
+		enemy.tag = "Enemy";
         enemy.transform.parent = this.transform;
         enemy.transform.localPosition = new Vector3(CalPos(rl), CalPos(rh), -1);
+
+		//add rightHand to player
+		GameObject rightHand = new GameObject();
+		rightHand.name = "Right Hand";
+		rightHand.transform.parent = enemy.transform;
+		rightHandItem = rightHand.AddComponent<basic_sword>();
+		rightSr = rightHand.AddComponent<SpriteRenderer>();
+		
+		spriteHolder = Resources.LoadAll("item/weapon");
+		rightSr.sprite = (Sprite)spriteHolder[1];
+		
+		rightHand.transform.localPosition = new Vector3(18 / 24f, 18 / 24f, 0);
+		rightHand.transform.localRotation = Quaternion.LookRotation(new Vector3(0, 0, wpnz), Vector3.up);
+		rightBc = rightHand.AddComponent<BoxCollider2D>();
+		rightBc.isTrigger = true;
+		
+		rightHand.AddComponent<damage>();
+		rightHand.SendMessage("setWeapon", rightHandItem);
+
+		enemy.GetComponent<Attack> ().rightHand = rightHand;
         return enemy;
     }
 
@@ -84,5 +115,33 @@ public class GenEnemies : MonoBehaviour {
             }
             generate = false;
         }
+
+		Transform target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+		foreach (GameObject enemies in GameObject.FindGameObjectsWithTag("Enemy")) {
+
+		
+			attack = true;
+			if (Vector3.Distance (enemies.transform.position, target.position) < 2f) {
+				Debug.Log ("Distance " + Vector3.Distance (enemies.transform.position, target.position));
+
+				enemies.GetComponent<Attack>().rightHand.SetActive(true);
+				if (wpnz < 15) {
+					wpnz++;
+					for (int i = 0; i < 10; i++) {
+						enemies.GetComponent<Attack>().rightHand.transform.Rotate (0, 0, 1);
+						wpnx = wpnx - ((2 / 3f) / 150f);
+						enemies.GetComponent<Attack>().rightHand.transform.localPosition = new Vector3 (wpnx, 18 / 24f, 0f);
+					}
+				} else {
+					wpnz = 0;
+					enemies.GetComponent<Attack>().rightHand.transform.localRotation = Quaternion.LookRotation (new Vector3 (0, 0, wpnz), Vector3.up);
+					wpnx = 18 / 24f;
+					enemies.GetComponent<Attack>().rightHand.transform.localPosition = new Vector3 (wpnx, 18 / 24f, 0f);
+					//rightHand.SendMessage ("ClearArray");
+					enemies.GetComponent<Attack>().rightHand.SetActive (false);
+				}
+			}
+			attack = false;
+		}
 	}
 }
