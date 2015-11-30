@@ -27,7 +27,12 @@ public class Fireball : Ability
         CircleCollider2D cc = obj.AddComponent<CircleCollider2D>();
         cc.isTrigger = true;
         Quaternion rot;
-        int direction = gameObject.GetComponent<playermovement>().direction;
+		int direction;
+		if (gameObject.tag == "Player") {
+			direction = gameObject.GetComponent<playermovement> ().direction;
+		} else {
+			direction = 1;
+		}
         float x = 0, y = 1;
         if(direction == 1)
         {

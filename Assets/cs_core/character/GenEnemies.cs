@@ -36,6 +36,7 @@ public class GenEnemies : MonoBehaviour {
         enemy.AddComponent<Rigidbody2D>();
         enemy.AddComponent<AI_Attributes>();
 		enemy.AddComponent<Attack> ();
+		enemy.AddComponent<Fireball> ();
 		spriteHolder = Resources.LoadAll("pc");
         enemy.GetComponent<FlockingAlgorithm>().seperation = 1;
         enemy.GetComponent<movements>().speed = UnityEngine.Random.Range(5, 15);
@@ -118,9 +119,6 @@ public class GenEnemies : MonoBehaviour {
 
 		Transform target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
 		foreach (GameObject enemies in GameObject.FindGameObjectsWithTag("Enemy")) {
-
-		
-			attack = true;
 			if (Vector3.Distance (enemies.transform.position, target.position) < 2f) {
 
 				enemies.GetComponent<Attack>().rightHand.SetActive(true);
@@ -139,8 +137,10 @@ public class GenEnemies : MonoBehaviour {
 					//rightHand.SendMessage ("ClearArray");
 					enemies.GetComponent<Attack>().rightHand.SetActive (false);
 				}
-			}
-			attack = false;
+			} //else if(Vector3.Distance (enemies.transform.position, target.position) < 4f){ 
+
+				//enemies.GetComponent<Fireball>().cast();
+			//}
 		}
 	}
 }
