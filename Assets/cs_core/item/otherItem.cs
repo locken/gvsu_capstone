@@ -6,19 +6,19 @@ using System;
 
 public class otherItem : Item {
 
-    public otherItem()
-    {
-        this.itemType = itemTypes.other;
-    }
+    public enum otherTypes {Key, Ammunition};
 
     public override void useItemAction()
     {
         throw new NotImplementedException();
     }
 
+    public otherTypes otherType;
+
     // Use this for initialization
     void Start () {
-	
+        this.itemType = itemTypes.other;
+        this.itemID = 400;
 	}
 	
 	// Update is called once per frame

@@ -4,14 +4,12 @@ using System.Collections;
 
 public class GenerateItems : MonoBehaviour {
 
-    //Object[] array = Resources.LoadAll("item/consumable");
-    // Use this for initialization
+    int WEAPONTYPES = 2;        //Currently only 2 weapon types: knife and sword
+    int ARMORTYPES = 1;         //Currently only 1 armor type: shield
+    int CONSUMABLETYPES = 4;    //Currently only 4 consumable types: Health potion, magic potion, stat potion, and food
+    int OTHERTYPES = 2;         //Currently only 2 other types: Key and Ammunition
 
-    
-
-        //Create base item and use Instantiate function for real new items then destroy the base. 
     void Start () {
-        string spritePath;
         Random.seed = System.DateTime.UtcNow.Second;
         int itemsToGenerate = GetRandomNumItems();
         int[] usedX = new int[itemsToGenerate];
@@ -20,27 +18,24 @@ public class GenerateItems : MonoBehaviour {
         {
             string tempItemType = GetRandomItemType();
             GameObject itemGenerate = new GameObject();
-            itemGenerate.name = "item" + i;
             if(tempItemType == "weapon")
             {
-                itemGenerate.AddComponent<weaponItem>();
-                spritePath = "item/weapon/dagger";
+                itemGenerate = GenerateWeapon();
             }
             else if(tempItemType == "armor")
             {
-                itemGenerate.AddComponent<armorItem>();
-                spritePath = "item/armor/armorSpritesheet";
+                itemGenerate = GenerateArmor();
             }
             else if(tempItemType == "consumable")
             {
-                spritePath = "item/consumable/food";
-                itemGenerate.AddComponent<consumableItem>();
+                itemGenerate = GenerateConsumable(); 
             }
             else
             {
-                spritePath = "item/weapon/dagger";
-                itemGenerate.AddComponent<otherItem>();
+                itemGenerate = GenerateOther();
             }
+            itemGenerate.name = "item" + i;
+            
             int newX = GetRandomPos();
             int newY = GetRandomPos();
             if (i != 0)
@@ -55,13 +50,9 @@ public class GenerateItems : MonoBehaviour {
                     }
                 }
             }
-            GameObject itemFinal = (GameObject)Instantiate(itemGenerate, new Vector3(newX, newY), Quaternion.identity);
+            GameObject itemFinal = (GameObject)Instantiate(itemGenerate, new Vector3(newX, newY, 0), Quaternion.identity);
             usedX[i] = newX;
             usedY[i] = newY;
-            SpriteRenderer itemF_sr = itemFinal.AddComponent<SpriteRenderer>();
-            itemF_sr.sprite = Resources.Load<Sprite>(spritePath);
-            itemFinal.transform.localScale += new Vector3(4.0F, 4.0F);
-            //BoxCollider2D itemF_bc = itemFinal.AddComponent<BoxCollider2D>();
             Destroy(itemGenerate);
         }
 
@@ -102,12 +93,98 @@ public class GenerateItems : MonoBehaviour {
         }
         return temp;
     }
-    //between size 0 and 5. In the future we should get the room size and manipulate the bounds
+    //between size 1 and 9
     // use for both x and y position
     int GetRandomPos()
     {
-        return Random.Range(0, 5);
+        return Random.Range(1, 9);
 
+    }
+
+    GameObject GenerateWeapon()
+    {
+        GameObject temp = new GameObject();
+        SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
+        int type = Random.Range(1, WEAPONTYPES);
+        if(type == 1)
+        {
+            temp.AddComponent<basic_dagger>();
+            tempSprite.sprite = Resources.Load<Sprite>("item/weapon/dagger");
+        }
+        else
+        {
+            temp.AddComponent<basic_sword>();
+            tempSprite.sprite = Resources.Load<Sprite>("item/weapon/basic_sword");
+        }
+        BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
+        tempCollider.transform.parent = temp.transform;
+        return temp;
+    }
+
+    GameObject GenerateArmor()
+    {
+        GameObject temp = new GameObject();
+        SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
+        int type = Random.Range(1, ARMORTYPES);
+        if (type == 1)
+        {
+            temp.AddComponent<basic_shield>();
+            tempSprite.sprite = Resources.Load<Sprite>("item/armor/shield");
+        }
+        BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
+        tempCollider.transform.parent = temp.transform;
+        return temp;
+    }
+
+    GameObject GenerateConsumable()
+    {
+        GameObject temp = new GameObject();
+        SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
+        int type = Random.Range(1, CONSUMABLETYPES);
+        if(type == 1)
+        {
+            temp.AddComponent<health_potion>();
+            tempSprite.sprite = Resources.Load<Sprite>("item/consumable/health_potion");
+        }
+        else if(type == 2)
+        {
+            temp.AddComponent<magic_potion>();
+            tempSprite.sprite = Resources.Load<Sprite>("item/consumable/magic_potion");
+
+        }
+        else if(type == 3)
+        {
+            temp.AddComponent<stat_potion>();
+            tempSprite.sprite = Resources.Load<Sprite>("item/consumable/stat_potion");
+
+        }
+        else
+        {
+            temp.AddComponent<food>();
+            tempSprite.sprite = Resources.Load<Sprite>("item/consumable/food");
+        }
+        BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
+        tempCollider.transform.parent = temp.transform;
+        return temp;
+    }
+
+    GameObject GenerateOther()
+    {
+        GameObject temp = new GameObject();
+        SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
+        int type = Random.Range(1, OTHERTYPES);
+        if(type == 1)
+        {
+            temp.AddComponent<key>();
+            tempSprite.sprite = Resources.Load<Sprite>("item/other/key");
+        }
+        else
+        {
+            
+        }
+        BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
+        tempCollider.transform.parent = temp.transform;
+        return temp;
     }
 	// Update is called once per frame
 	void Update () {

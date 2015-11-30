@@ -22,7 +22,6 @@ public abstract class Item : MonoBehaviour{
     public int itemID;
     public string itemName;
     public itemTypes itemType;
-    public SpriteRenderer itemSprite;
     public int minLevel;
     public float cooldown;
     
@@ -38,7 +37,7 @@ public abstract class Item : MonoBehaviour{
         //creates and adds a new sprite renderer to 'this' G.O.
         SpriteRenderer sr = gameObject.AddComponent<SpriteRenderer>();
         //set sprite = to Resources/item/itemType/spriteName
-        sr.sprite = (Sprite)Resources.Load("item/" + itemType + "/" + spriteName + ".png");
+        sr.sprite = Resources.Load<Sprite>("item/" + itemType + "/" + spriteName);
         //return the SpriteRenderer
         return sr;
     }
