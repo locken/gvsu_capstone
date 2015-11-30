@@ -18,6 +18,7 @@ public class GenEnemies : MonoBehaviour {
     GameObject GenerateEnemy(int i, int rl, int rh)
     {
         GameObject enemy = new GameObject();
+        enemy.tag = "Enemy";
         SpriteRenderer enemySprite = new SpriteRenderer();
         BoxCollider2D enemyCollider = new BoxCollider2D();
         //Maybe dont need this?
@@ -34,6 +35,12 @@ public class GenEnemies : MonoBehaviour {
         enemySprite.sprite = Resources.Load<Sprite>("enemy");
         enemyCount++;
         enemy.name = "enemy" + enemyCount.ToString();
+
+        //enemy.AddComponent<ai_healthbar>();
+        /*GameObject enemyHealthbar = new GameObject();
+        enemyHealthbar.AddComponent<ai_healthbar>();
+        enemyHealthbar.transform.parent = enemy.transform;
+        enemyHealthbar.transform.localPosition = new Vector3(0, 16/24f, 0);*/
        
         enemy.transform.parent = this.transform;
         enemy.transform.localPosition = new Vector3(CalPos(rl), CalPos(rh), -1);

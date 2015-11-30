@@ -13,13 +13,10 @@ public class damage : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("attack");
         if (!enemiesHit.Contains(other.gameObject))
         {
-            Debug.Log("object not hit");
             if (other.gameObject.CompareTag("Enemy"))
             {
-                Debug.Log("object is enemy");
                 ApplyDamage(other);
             }
         }
@@ -32,8 +29,7 @@ public class damage : MonoBehaviour {
         Debug.Log(health);
         enemiesHit.Add(other.gameObject);
         enemy.Health = health - rightHandItem.weaponDamage;
-        Debug.Log("weapon damage: " + rightHandItem.weaponDamage);
-        Debug.Log("AI current Health: " + enemy.Health);
+        Debug.Log(other.gameObject.name + " health: " + enemy.Health);
     }
 
     void ClearArray()
