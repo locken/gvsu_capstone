@@ -5,38 +5,38 @@ using System.Collections;
 public class GenerateItems : MonoBehaviour
 {
 
-    int WEAPONTYPES = 2;        //Currently only 2 weapon types: knife and sword
-    int ARMORTYPES = 1;         //Currently only 1 armor type: shield
-    int CONSUMABLETYPES = 4;    //Currently only 4 consumable types: Health potion, magic potion, stat potion, and food
-    int OTHERTYPES = 2;         //Currently only 2 other types: Key and Ammunition
+    int WEAPONTYPES = 2;        //Currently 2 weapon types: knife and sword
+    int ARMORTYPES = 1;         //Currently 1 armor type: shield
+    int CONSUMABLETYPES = 4;    //Currently 4 consumable types: Health potion, magic potion, stat potion, and food
+    int OTHERTYPES = 1;         //Currently 2 other types: Key and Ammunition, however it is set to 1 because we haven't implemented Ammo yet.
+
+    int weaponCount = 0;
+    int armorCount = 0;
+    int consumableCount = 0;
+    int otherCount = 0;
 
     void Start()
     {
-        Random.seed = System.DateTime.UtcNow.Second;
+        for(int i=0; i<5; i++)
+        {
+            for(int j=0; j<5; j++)
+            {
+                int itemsToGenerate = GetRandomNumItems();
+                for(int k=0; k<itemsToGenerate; k++)
+                {
+                    GenerateItem(i, j);
+                }
+            }
+            //GenerateRoomItems(i);
+        }
+        /*Random.seed = System.DateTime.UtcNow.Second;
         int itemsToGenerate = GetRandomNumItems();
         int[] usedX = new int[itemsToGenerate];
         int[] usedY = new int[itemsToGenerate];
         for (int i = 0; i < itemsToGenerate; i++)
         {
-            string tempItemType = GetRandomItemType();
-            GameObject itemGenerate = new GameObject();
-            if (tempItemType == "weapon")
-            {
-                itemGenerate = GenerateWeapon();
-            }
-            else if (tempItemType == "armor")
-            {
-                itemGenerate = GenerateArmor();
-            }
-            else if (tempItemType == "consumable")
-            {
-                itemGenerate = GenerateConsumable();
-            }
-            else
-            {
-                itemGenerate = GenerateOther();
-            }
-            itemGenerate.name = "item" + i;
+            GameObject itemGenerate = GenerateItem();
+            itemGenerate.name+=i;
 
             int newX = GetRandomPos();
             int newY = GetRandomPos();
@@ -56,27 +56,70 @@ public class GenerateItems : MonoBehaviour
             usedX[i] = newX;
             usedY[i] = newY;
             Destroy(itemGenerate);
+        }*/
+    }
+
+    /*void GenerateRoomItems(int roomIndex)
+    {
+        Random.seed = System.DateTime.UtcNow.Second;
+        int itemsToGenerate = GetRandomNumItems();
+        int[] usedX = new int[itemsToGenerate];
+        int[] usedY = new int[itemsToGenerate];
+        int roomHeight = localMap.GetComponent<Map>().getRoomsH(roomIndex);
+        int roomLength = localMap.GetComponent<Map>().getRoomsL(roomIndex);
+        for(int i=0; i<itemsToGenerate; i++)
+        {
+            GameObject itemGenerate = GenerateItem();
+            itemGenerate.name += i;
+            GameObject itemFinal = (GameObject)Instantiate(itemGenerate, new Vector3(CalPos(roomLength), CalPos(roomHeight), -1), Quaternion.identity);
         }
 
-        /*Object[] array = Resources.LoadAll("item/consumable");
-		Debug.Log ("Array Length: " + array[0]);
-        GameObject item01 = new GameObject();
-        SpriteRenderer item01sprite = item01.AddComponent<SpriteRenderer>();
-        item01.name = "item01";
-       // item01sprite.sprite = (Sprite)array[1];
-        GameObject item02 = (GameObject)Instantiate(item01, new Vector3(3.0f, 4.0f), Quaternion.identity);
-        Destroy(item01);*/
+    }*/
+
+    int CalPos(int i)
+    {
+        int temp = 0, value = 0;
+        while(temp < i)
+        {
+            value += 40;
+            temp++;
+        }
+        value += UnityEngine.Random.Range(-4, 4);
+        return value;
+    }
+
+    void GenerateItem(int i, int j)
+    {
+        string tempItemType = GetRandomItemType();
+        GameObject tempItem = new GameObject();
+        if (tempItemType == "weapon")
+        {
+            //tempItem = (GameObject)Instantiate(GenerateWeapon(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
+            GenerateWeapon(i, j);
+        }
+        else if (tempItemType == "armor")
+        {
+            GenerateArmor(i, j);
+        }
+        else if (tempItemType == "consumable")
+        {
+            GenerateConsumable(i, j);
+        }
+        else
+        {
+            GenerateOther(i, j);
+        }
     }
 
     int GetRandomNumItems()
     {
-        return Random.Range(1, 4);
+        return Random.Range(0, 3);
     }
 
     string GetRandomItemType()
     {
         string temp = "";
-        int itemType = GetRandomNumItems();
+        int itemType = UnityEngine.Random.Range(1,4);
         if (itemType == 1)
         {
             temp = "weapon";
@@ -103,9 +146,11 @@ public class GenerateItems : MonoBehaviour
 
     }
 
-    GameObject GenerateWeapon()
+    void GenerateWeapon(int i, int j)
     {
-        GameObject temp = new GameObject();
+        GameObject temp = (GameObject)Instantiate(new GameObject(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
+        temp.name = "weapon" + weaponCount;
+        weaponCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
         int type = Random.Range(1, WEAPONTYPES);
         if (type == 1)
@@ -120,12 +165,14 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
-        return temp;
+
     }
 
-    GameObject GenerateArmor()
+    void GenerateArmor(int i, int j)
     {
-        GameObject temp = new GameObject();
+        GameObject temp = (GameObject)Instantiate(new GameObject(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
+        temp.name = "armor" + armorCount;
+        armorCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
         int type = Random.Range(1, ARMORTYPES);
         if (type == 1)
@@ -135,12 +182,13 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
-        return temp;
     }
 
-    GameObject GenerateConsumable()
+    void GenerateConsumable(int i, int j)
     {
-        GameObject temp = new GameObject();
+        GameObject temp = (GameObject)Instantiate(new GameObject(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
+        temp.name = "consumable" + consumableCount;
+        consumableCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
         int type = Random.Range(1, CONSUMABLETYPES);
         if (type == 1)
@@ -167,13 +215,14 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
-        return temp;
     }
 
-    GameObject GenerateOther()
+    void GenerateOther(int i, int j)
     {
-        GameObject temp = new GameObject();
+        GameObject temp = (GameObject)Instantiate(new GameObject(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
+        temp.name = "other" + otherCount;
+        otherCount++;
         int type = Random.Range(1, OTHERTYPES);
         if (type == 1)
         {
@@ -186,7 +235,6 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
-        return temp;
     }
     // Update is called once per frame
     void Update()
