@@ -112,8 +112,8 @@ public class InventoryMenu : MonoBehaviour {
             currentStyle.normal.textColor = Color.white;
             //GUI.contentColor = Color.white;
             GUI.Box(new Rect(10, 10, 400, 400), playerName + "'s Inventory", currentStyle);
-            GUI.Label(new Rect(20, 40, 200, 20), "Level: " + localPlayer.GetComponent<Playable>().Level.ToString());
-            GUI.Label(new Rect(20, 60, 200, 20), "XP: " + localPlayer.GetComponent<Playable>().XP.ToString());
+            GUI.Label(new Rect(20, 40, 200, 20), "Level: " + localPlayer.GetComponent<Attributes>().Level.ToString());
+            GUI.Label(new Rect(20, 60, 200, 20), "XP: " + localPlayer.GetComponent<Attributes>().XP.ToString());
             GUI.Label(new Rect(20, 100, 200, 20), "Active Weapon:");
             GUI.Label(new Rect(120, 100, 200, 20), activeWeapon);
             GUI.DrawTexture(new Rect(200, 90, 70, 40), activeTexture);

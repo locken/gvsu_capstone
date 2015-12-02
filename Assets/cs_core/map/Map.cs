@@ -83,7 +83,7 @@ public class Map : MonoBehaviour {
             } 
 			currentRoom = arrayRow * size + arrayCol;
         }
-		//createEdges();
+		createEdges();
     }
     
 
@@ -184,7 +184,7 @@ public class Map : MonoBehaviour {
         GameObject room = new GameObject();
         room.transform.name = "room" + roomNum.ToString();
         room.transform.parent = this.transform;
-
+        
 		room.transform.position = new Vector3(col * 40, row * 40);
         room.AddComponent<Room>();
         Room r = room.GetComponent<Room>();

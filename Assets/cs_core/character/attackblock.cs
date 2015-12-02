@@ -33,7 +33,7 @@ public class attackblock : MonoBehaviour {
             anim.SetTrigger("Attack");
 			//if (other.tag == "Enemy") {
 			if(collided){
-				AI_Attributes enemyAttributes = currentEnemy.gameObject.GetComponent<AI_Attributes>();
+				Attributes enemyAttributes = currentEnemy.gameObject.GetComponent<Attributes>();
 				enemyAttributes.Health -= 10;
 				Debug.Log(currentEnemy.name + ": " + enemyAttributes.Health);
 				}

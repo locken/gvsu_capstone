@@ -4,10 +4,10 @@ using System.Collections;
 public class AbilityCasted : MonoBehaviour {
 
     public int damage;
-    public string id;
+    public string id, target;
     Vector2 movementVector;
 
-    public void setStats(int d, string name,float x, float y, Quaternion rot)
+    public void setStats(int d, string name,float x, float y, Quaternion rot,string t)
     {
         damage = d;
         id = name;
@@ -15,6 +15,7 @@ public class AbilityCasted : MonoBehaviour {
         movementVector.x = x;
         movementVector.y = y;
         transform.rotation = rot;
+        target = t;
     }
 
     public void setStart(GameObject other)
@@ -29,20 +30,17 @@ public class AbilityCasted : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag ("Enemy")) {
-			AI_Attributes enemy = other.gameObject.GetComponent ("AI_Attributes") as AI_Attributes;
+        if (other.gameObject.CompareTag (target)) {
+            Attributes enemy;
+            if (other.gameObject.name == "Right Hand")
+                enemy = other.gameObject.GetComponentInParent<Attributes>();
+            else
+                enemy = other.gameObject.GetComponent<Attributes>();
 			int health = enemy.Health;
-			Debug.Log (health);
 			enemy.Health = health - damage;
-			Debug.Log (other.gameObject.name + " health: " + enemy.Health);
-		} else if (other.gameObject.name == "Right Hand") {
-			AI_Attributes enemy = other.gameObject.transform.parent.GetComponent ("AI_Attributes") as AI_Attributes;
-			int health = enemy.Health;
-			Debug.Log (health);
-			enemy.Health = health - damage;
-			Debug.Log (other.gameObject.name + " health: " + enemy.Health);
+			Debug.Log (enemy.gameObject.name + " health: " + enemy.Health);
 		}
-		if (!other.gameObject.CompareTag("Player"))
+		if (!other.gameObject.CompareTag(gameObject.tag))
         {
             Destroy(this.gameObject);
         }

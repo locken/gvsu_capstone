@@ -1,8 +1,8 @@
-afsd
-11/8/2015 6:10:19 PM
+Enter your name
+11/30/2015 4:36:56 PM
 Level: 1
 Health: 100
-Magic: 50
+XP: 0
 Active Weapon: basic_sword
 Inventory: 
  basic_sword 

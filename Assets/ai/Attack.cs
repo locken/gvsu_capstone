@@ -22,7 +22,7 @@ public class Attack : MonoBehaviour {
 		Transform target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
 		if (GetComponent<movements>().playerCollision && Vector3.Distance (this.transform.position, target.position) < 2f) {
 			//anim.SetTrigger ("Attack");
-			Debug.Log("ATACKKING");
+			Debug.Log("ATTACKING");
 			attacking = true;
 		} else {
 			attacking = false;
