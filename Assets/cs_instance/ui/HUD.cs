@@ -99,6 +99,15 @@ public class HUD : MonoBehaviour {
         enemyCount++;
     }
 
+    public void DecreaseHealthBar()
+    {
+        currentHealth--;
+    }
+    public void IncreaseHealthBar()
+    {
+        currentHealth++;
+    }
+
     // Update is called once per frame
     void Update () {
         if (afterStart)
@@ -108,22 +117,15 @@ public class HUD : MonoBehaviour {
             localCurrentHealth = localPlayer.GetComponent<Attributes>().Health;
             localPlayer.GetComponent<Attributes>().CharName = localMaster.GetComponent<InventoryMenu>().getName();
         }
-        if(localCurrentHealth != localPlayer.GetComponent<Attributes>().Health)
-        {
-<<<<<<< HEAD
+        //if (localCurrentHealth != localPlayer.GetComponent<Attributes>().Health)
+        //{
             //Debug.Log("current player health" + currentHealth);
-            if (currentHealth > 0)
-            {
-                currentHealth = currentHealth - (int)oneOneHund;
-            }
+          //  if (currentHealth > 0)
+            //{
+            //    currentHealth = currentHealth - (int)oneOneHund;
+            //}
             //Debug.Log("new player health" + currentHealth);
-            localCurrentHealth = localPlayer.GetComponent<Playable>().Health;
-=======
-            Debug.Log("current player health" + currentHealth);
-            currentHealth = currentHealth - oneOneHund;
-            Debug.Log("new player health" + currentHealth);
-            localCurrentHealth = localPlayer.GetComponent<Attributes>().Health;
->>>>>>> 094a96e92399e2a4a2244af39a6881e861809fe3
-        }
-	}
+        //}
+        //localCurrentHealth = localPlayer.GetComponent<Attributes>().Health;
+    }
 }

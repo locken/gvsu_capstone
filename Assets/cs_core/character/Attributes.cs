@@ -55,7 +55,11 @@ public class Attributes : Character {
 		}
 		set{
 			m_health = value;
-		}
+            if (this.tag == "Player" && m_health < (m_health + value))
+            {
+                GameObject.Find("_Master").GetComponent<HUD>().DecreaseHealthBar();
+            }
+        }
 	}
 
 	public override int XP{
@@ -139,7 +143,16 @@ public class Attributes : Character {
         if (timestamp < Time.time)
         {
             if (Health < 100)
+            {
+                Debug.Log("fuck the navby");
+                GameObject.Find("_Master").GetComponent<HUD>().IncreaseHealthBar();
                 Health++;
+               // if (gameObject.tag == "Player")
+               // {
+                    //GameObject.Find("_Master").GetComponent<HUD>().IncreaseHealthBar();
+                //Debug.Log("fuck the navby");
+                //}
+            }
             if (Magic < 100)
             {
                 if (Magic + 2 > 100)

@@ -140,6 +140,7 @@ public class GenEnemies : MonoBehaviour {
 					//rightHand.SendMessage ("ClearArray");
 					enemies.GetComponent<Attack>().rightHand.SetActive (false);
 					GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Attributes>().Health--;
+                    
 					Debug.Log ("player health: " + GameObject.FindGameObjectsWithTag ("Player") [0].GetComponent<Attributes> ().Health);
 				}
 
