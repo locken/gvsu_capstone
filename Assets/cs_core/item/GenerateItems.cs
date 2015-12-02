@@ -15,6 +15,8 @@ public class GenerateItems : MonoBehaviour
     int consumableCount = 0;
     int otherCount = 0;
 
+    GameObject temp;
+
     void Start()
     {
         for(int i=0; i<5; i++)
@@ -27,54 +29,9 @@ public class GenerateItems : MonoBehaviour
                     GenerateItem(i, j);
                 }
             }
-            //GenerateRoomItems(i);
         }
-        /*Random.seed = System.DateTime.UtcNow.Second;
-        int itemsToGenerate = GetRandomNumItems();
-        int[] usedX = new int[itemsToGenerate];
-        int[] usedY = new int[itemsToGenerate];
-        for (int i = 0; i < itemsToGenerate; i++)
-        {
-            GameObject itemGenerate = GenerateItem();
-            itemGenerate.name+=i;
-
-            int newX = GetRandomPos();
-            int newY = GetRandomPos();
-            if (i != 0)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    if ((newX == usedX[j]) && (newY == usedY[j]))
-                    {
-                        newX = GetRandomPos();
-                        newY = GetRandomPos();
-                        j = 0;
-                    }
-                }
-            }
-            GameObject itemFinal = (GameObject)Instantiate(itemGenerate, new Vector3(newX, newY, -1), Quaternion.identity);
-            usedX[i] = newX;
-            usedY[i] = newY;
-            Destroy(itemGenerate);
-        }*/
     }
 
-    /*void GenerateRoomItems(int roomIndex)
-    {
-        Random.seed = System.DateTime.UtcNow.Second;
-        int itemsToGenerate = GetRandomNumItems();
-        int[] usedX = new int[itemsToGenerate];
-        int[] usedY = new int[itemsToGenerate];
-        int roomHeight = localMap.GetComponent<Map>().getRoomsH(roomIndex);
-        int roomLength = localMap.GetComponent<Map>().getRoomsL(roomIndex);
-        for(int i=0; i<itemsToGenerate; i++)
-        {
-            GameObject itemGenerate = GenerateItem();
-            itemGenerate.name += i;
-            GameObject itemFinal = (GameObject)Instantiate(itemGenerate, new Vector3(CalPos(roomLength), CalPos(roomHeight), -1), Quaternion.identity);
-        }
-
-    }*/
 
     int CalPos(int i)
     {
@@ -91,7 +48,6 @@ public class GenerateItems : MonoBehaviour
     void GenerateItem(int i, int j)
     {
         string tempItemType = GetRandomItemType();
-        GameObject tempItem = new GameObject();
         if (tempItemType == "weapon")
         {
             //tempItem = (GameObject)Instantiate(GenerateWeapon(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
@@ -148,7 +104,8 @@ public class GenerateItems : MonoBehaviour
 
     void GenerateWeapon(int i, int j)
     {
-        GameObject temp = (GameObject)Instantiate(new GameObject(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
+        temp = new GameObject();
+        temp.transform.localPosition = new Vector3(CalPos(i), CalPos(j), -1);
         temp.name = "weapon" + weaponCount;
         weaponCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
@@ -165,12 +122,12 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
-
     }
 
     void GenerateArmor(int i, int j)
     {
-        GameObject temp = (GameObject)Instantiate(new GameObject(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
+        temp = new GameObject();
+        temp.transform.localPosition = new Vector3(CalPos(i), CalPos(j), -1);
         temp.name = "armor" + armorCount;
         armorCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
@@ -186,7 +143,8 @@ public class GenerateItems : MonoBehaviour
 
     void GenerateConsumable(int i, int j)
     {
-        GameObject temp = (GameObject)Instantiate(new GameObject(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
+        GameObject temp = new GameObject();
+        temp.transform.localPosition = new Vector3(CalPos(i), CalPos(j), -1);
         temp.name = "consumable" + consumableCount;
         consumableCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
@@ -219,7 +177,8 @@ public class GenerateItems : MonoBehaviour
 
     void GenerateOther(int i, int j)
     {
-        GameObject temp = (GameObject)Instantiate(new GameObject(), new Vector3(CalPos(i), CalPos(j), -1), Quaternion.identity);
+        temp = new GameObject();
+        temp.transform.localPosition = new Vector3(CalPos(i), CalPos(j), -1);
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
         temp.name = "other" + otherCount;
         otherCount++;
