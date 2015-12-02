@@ -8,7 +8,7 @@ public class player : MonoBehaviour {
     public GameObject plyr;
     public SpriteRenderer playerSprite;
     public BoxCollider2D playerCollider;
-    public Playable plyrStats;
+    public Attributes plyrStats;
 
     //right hand variables
     public GameObject rightHand;
@@ -38,7 +38,7 @@ public class player : MonoBehaviour {
         this.transform.parent = plyr.transform;
         plyr.name = "Player";
         plyr.tag = "Player";
-        plyrStats = plyr.AddComponent<Playable>();
+        plyrStats = plyr.AddComponent<Attributes>();
         plyr.AddComponent<playermovement>();
         playerSprite = plyr.AddComponent<SpriteRenderer>();
         spriteHolder = Resources.LoadAll("pc");
@@ -51,6 +51,7 @@ public class player : MonoBehaviour {
 		plyrRb.isKinematic = false;
 		plyrRb.drag = 10;
         plyr.AddComponent<Fireball>();
+        plyr.AddComponent<Heal>();
         GameObject localMaster = GameObject.Find("Main Camera");
         //localMaster.AddComponent<CameraMovement>();
         localMaster.GetComponent<CameraMovement>().SetPlayer(plyr);
@@ -59,6 +60,7 @@ public class player : MonoBehaviour {
         //add rightHand to player
         rightHand = new GameObject();
         rightHand.name = "Right Hand";
+        rightHand.tag = "Player";
         rightHand.transform.parent = plyr.transform;
         rightHandItem = rightHand.AddComponent<basic_sword>();
         rightSr = rightHand.AddComponent<SpriteRenderer>();
@@ -131,6 +133,11 @@ public class player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.F))
         {
             plyr.GetComponent<Fireball>().cast();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            plyr.GetComponent<Heal>().cast();
         }
     }
 }

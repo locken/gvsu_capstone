@@ -34,7 +34,7 @@ public class GenEnemies : MonoBehaviour {
         enemy.AddComponent<movements>();
         enemy.AddComponent<FlockingAlgorithm>();
         enemy.AddComponent<Rigidbody2D>();
-        enemy.AddComponent<AI_Attributes>();
+        enemy.AddComponent<Attributes>();
 		enemy.AddComponent<Attack> ();
 		enemy.AddComponent<Fireball> ();
 		spriteHolder = Resources.LoadAll("pc");
@@ -54,6 +54,7 @@ public class GenEnemies : MonoBehaviour {
 		GameObject rightHand = new GameObject();
 		//rightHand.tag = "RightHand";
 		rightHand.name = "Right Hand";
+        rightHand.tag = "Enemy";
 		rightHand.transform.parent = enemy.transform;
 		rightHandItem = rightHand.AddComponent<basic_sword>();
 		rightSr = rightHand.AddComponent<SpriteRenderer>();
@@ -138,8 +139,8 @@ public class GenEnemies : MonoBehaviour {
 					enemies.GetComponent<Attack>().rightHand.transform.localPosition = new Vector3 (wpnx, 18 / 24f, 0f);
 					//rightHand.SendMessage ("ClearArray");
 					enemies.GetComponent<Attack>().rightHand.SetActive (false);
-					GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Playable>().Health--;
-					Debug.Log ("player health: " + GameObject.FindGameObjectsWithTag ("Player") [0].GetComponent<Playable> ().Health);
+					GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Attributes>().Health--;
+					Debug.Log ("player health: " + GameObject.FindGameObjectsWithTag ("Player") [0].GetComponent<Attributes> ().Health);
 				}
 
 			} //else if(Vector3.Distance (enemies.transform.position, target.position) < 4f){ 

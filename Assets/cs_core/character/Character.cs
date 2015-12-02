@@ -14,6 +14,7 @@ public abstract class Character : MonoBehaviour{
 	public abstract float Speed{ get; set;}
 	public abstract int XP{ get; set;}
 	public abstract string CharName{ get; set;}
+    public abstract int Magic { get; set; }
     public ArrayList abilities;
 
 	//Need to create inventory and ability classes

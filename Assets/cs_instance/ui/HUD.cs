@@ -103,15 +103,15 @@ public class HUD : MonoBehaviour {
         {
             afterStart = false;
             localPlayer = GameObject.Find("Player");
-            localCurrentHealth = localPlayer.GetComponent<Playable>().Health;
-            localPlayer.GetComponent<Playable>().CharName = localMaster.GetComponent<InventoryMenu>().getName();
+            localCurrentHealth = localPlayer.GetComponent<Attributes>().Health;
+            localPlayer.GetComponent<Attributes>().CharName = localMaster.GetComponent<InventoryMenu>().getName();
         }
-        if(localCurrentHealth != localPlayer.GetComponent<Playable>().Health)
+        if(localCurrentHealth != localPlayer.GetComponent<Attributes>().Health)
         {
             Debug.Log("current player health" + currentHealth);
             currentHealth = currentHealth - oneOneHund;
             Debug.Log("new player health" + currentHealth);
-            localCurrentHealth = localPlayer.GetComponent<Playable>().Health;
+            localCurrentHealth = localPlayer.GetComponent<Attributes>().Health;
         }
 	}
 }

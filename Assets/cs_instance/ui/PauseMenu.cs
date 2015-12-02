@@ -47,11 +47,11 @@ public class PauseMenu : MonoBehaviour {
                 {
                     Directory.CreateDirectory("Assets/Resources/SaveFiles");
                 }
-                string stringToEdit = localPlayer.GetComponent<Playable>().CharName;
+                string stringToEdit = localPlayer.GetComponent<Attributes>().CharName;
                 System.IO.File.WriteAllText(path, stringToEdit + "\n" + DateTime.Now.ToString() + "\n");
-                System.IO.File.AppendAllText(path, "Level: " + localPlayer.GetComponent<Playable>().Level.ToString() + "\n");
-                System.IO.File.AppendAllText(path, "Health: " + localPlayer.GetComponent<Playable>().Health.ToString() + "\n");
-                System.IO.File.AppendAllText(path, "XP: " + localPlayer.GetComponent<Playable>().XP.ToString() + "\n");
+                System.IO.File.AppendAllText(path, "Level: " + localPlayer.GetComponent<Attributes>().Level.ToString() + "\n");
+                System.IO.File.AppendAllText(path, "Health: " + localPlayer.GetComponent<Attributes>().Health.ToString() + "\n");
+                System.IO.File.AppendAllText(path, "XP: " + localPlayer.GetComponent<Attributes>().XP.ToString() + "\n");
                 System.IO.File.AppendAllText(path, "Active Weapon: basic_sword\n");
                 System.IO.File.AppendAllText(path, "Inventory: \n basic_sword \n empty \n empty \n empty \n empty");
                 //print("Save clicked");

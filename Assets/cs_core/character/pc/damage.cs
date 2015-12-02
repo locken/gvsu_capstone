@@ -5,31 +5,34 @@ public class damage : MonoBehaviour {
 
     public ArrayList enemiesHit;
     public weaponItem rightHandItem;
+    private string target;
 
 	void Start()
     {
         enemiesHit = new ArrayList();
+        if (gameObject.CompareTag("Player"))
+            target = "Enemy";
+        else
+            target = "Player";
     }
 
 	void OnTriggerEnter2D(Collider2D other)
     {
         if (!enemiesHit.Contains(other.gameObject))
         {
-			if (other.gameObject.CompareTag("Enemy"))
+			if (other.gameObject.CompareTag(target))
             {
-                ApplyDamage(other);
+                Attributes enemy;
+                if (other.gameObject.name.Equals("Right Hand"))
+                    enemy = other.gameObject.GetComponentInParent<Attributes>();
+                else
+                    enemy = other.gameObject.GetComponent<Attributes>();
+                int health = enemy.Health;
+                enemiesHit.Add(other.gameObject);
+                enemy.Health = health - rightHandItem.weaponDamage;
+                Debug.Log(other.gameObject.name + " health: " + enemy.Health);
             }
         }
-    }
-
-    void ApplyDamage(Collider2D other)
-    {
-        AI_Attributes enemy = other.gameObject.GetComponent("AI_Attributes") as AI_Attributes;
-        int health = enemy.Health;
-        Debug.Log(health);
-        enemiesHit.Add(other.gameObject);
-        enemy.Health = health - rightHandItem.weaponDamage;
-        Debug.Log(other.gameObject.name + " health: " + enemy.Health);
     }
 
     void ClearArray()
@@ -40,6 +43,5 @@ public class damage : MonoBehaviour {
     void setWeapon(weaponItem weapon)
     {
         rightHandItem = weapon;
-        Debug.Log("weapon set");
     }
 }
