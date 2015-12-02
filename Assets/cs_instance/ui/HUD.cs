@@ -4,8 +4,8 @@ using System.Collections;
 public class HUD : MonoBehaviour {
     int screenW = Screen.width;
     int screenH = Screen.height;
-    int enemyCount;
-    int currentHealth, localCurrentHealth, oneOneHund;
+    int currentHealth, localCurrentHealth, enemyCount, currentMagic;
+    float oneOneHund;
     GameObject localMaster, localPlayer;
     bool playing, afterStart, gameOver;
     private GUIStyle currentStyle = new GUIStyle();
@@ -34,8 +34,10 @@ public class HUD : MonoBehaviour {
         // Apply all SetPixel calls
         hudTexture.Apply();
         magicTexture.Apply();
-        currentHealth = screenH / 38;
+        currentHealth = currentMagic = 100;
+        //Debug.Log("current health = "  + currentHealth);
         oneOneHund = currentHealth / 100;
+        //Debug.Log("100th = " + oneOneHund);
         healthTexture.Apply();
     }
 
@@ -50,11 +52,11 @@ public class HUD : MonoBehaviour {
             GUI.contentColor = Color.red;
             GUI.Label(new Rect(5, screenH / 26, screenW / 10, screenH / 10), "Health:");
             currentStyle.normal.background = healthTexture;
-            GUI.Box(new Rect(screenW / 9, screenH / 20, screenW / 5, currentHealth), "", currentStyle);
+            GUI.Box(new Rect(screenW / 9, screenH / 20, currentHealth, screenH / 34), "", currentStyle);
             GUI.contentColor = Color.blue;
             currentStyle.normal.background = magicTexture;
             GUI.Label(new Rect(5, screenH / 14, screenW / 10, screenH / 10), "Magic:");
-            GUI.Box(new Rect(screenW / 9, screenH / 12, screenW / 5, screenH / 35), "", currentStyle);
+            GUI.Box(new Rect(screenW / 9, screenH / 12, currentMagic, screenH / 35), "", currentStyle);
             if (enemyCount > 0) {
                 GUI.Label(new Rect(5, screenH / 9, screenW / 6, screenH / 10), "Enemies left: " + enemyCount.ToString());
             }
@@ -66,8 +68,8 @@ public class HUD : MonoBehaviour {
         if (gameOver)
         {
             Time.timeScale = 0;
-            GUI.Label(new Rect(20, screenH / 2, screenW / 8, screenH / 4), "Game Over");
-            if(GUI.Button(new Rect(20, screenH / 4, screenW / 4, screenH / 14), "Main Menu"))
+            GUI.Label(new Rect(screenW / 2, screenH / 2, screenW / 8, screenH / 4), "Game Over");
+            if(GUI.Button(new Rect(screenW / 2, screenH / 4, screenW / 4, screenH / 14), "Main Menu"))
             {
                 Application.LoadLevel(0);
             }
@@ -108,9 +110,12 @@ public class HUD : MonoBehaviour {
         }
         if(localCurrentHealth != localPlayer.GetComponent<Playable>().Health)
         {
-            Debug.Log("current player health" + currentHealth);
-            currentHealth = currentHealth - oneOneHund;
-            Debug.Log("new player health" + currentHealth);
+            //Debug.Log("current player health" + currentHealth);
+            if (currentHealth > 0)
+            {
+                currentHealth = currentHealth - (int)oneOneHund;
+            }
+            //Debug.Log("new player health" + currentHealth);
             localCurrentHealth = localPlayer.GetComponent<Playable>().Health;
         }
 	}
