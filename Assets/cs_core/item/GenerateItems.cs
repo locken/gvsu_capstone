@@ -26,7 +26,7 @@ public class GenerateItems : MonoBehaviour
                 int itemsToGenerate = GetRandomNumItems();
                 for(int k=0; k<itemsToGenerate; k++)
                 {
-                    GenerateItem(i, j);
+					GenerateItem(CalPos(i), CalPos(j));
                 }
             }
         }
@@ -105,7 +105,7 @@ public class GenerateItems : MonoBehaviour
     void GenerateWeapon(int i, int j)
     {
         temp = new GameObject();
-        temp.transform.localPosition = new Vector3(CalPos(i), CalPos(j), -1);
+        temp.transform.localPosition = new Vector3(i,j, -1);
         temp.name = "weapon" + weaponCount;
         weaponCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
@@ -127,7 +127,7 @@ public class GenerateItems : MonoBehaviour
     void GenerateArmor(int i, int j)
     {
         temp = new GameObject();
-        temp.transform.localPosition = new Vector3(CalPos(i), CalPos(j), -1);
+        temp.transform.localPosition = new Vector3(i, j, -1);
         temp.name = "armor" + armorCount;
         armorCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
@@ -144,7 +144,7 @@ public class GenerateItems : MonoBehaviour
     void GenerateConsumable(int i, int j)
     {
         GameObject temp = new GameObject();
-        temp.transform.localPosition = new Vector3(CalPos(i), CalPos(j), -1);
+        temp.transform.localPosition = new Vector3(i, j, -1);
         temp.name = "consumable" + consumableCount;
         consumableCount++;
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
@@ -178,7 +178,7 @@ public class GenerateItems : MonoBehaviour
     void GenerateOther(int i, int j)
     {
         temp = new GameObject();
-        temp.transform.localPosition = new Vector3(CalPos(i), CalPos(j), -1);
+        temp.transform.localPosition = new Vector3(i, j, -1);
         SpriteRenderer tempSprite = temp.AddComponent<SpriteRenderer>();
         temp.name = "other" + otherCount;
         otherCount++;
