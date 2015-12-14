@@ -71,6 +71,7 @@ public class GenEnemies : MonoBehaviour {
 		rightHand.SendMessage("setWeapon", rightHandItem);
 
 		enemy.GetComponent<Attack> ().rightHand = rightHand;
+        rightHand.SetActive(false);
         return enemy;
     }
 
@@ -122,8 +123,9 @@ public class GenEnemies : MonoBehaviour {
 		Transform target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
 		foreach (GameObject enemies in GameObject.FindGameObjectsWithTag("Enemy")) {
 			if (Vector3.Distance (enemies.transform.position, target.position) < 2f) {
-
-				enemies.GetComponent<Attack>().rightHand.SetActive(true);
+                enemies.GetComponent<Attack>().rightHand.SetActive(true);
+                enemies.GetComponent<Attack>().attack = true;
+				/*enemies.GetComponent<Attack>().rightHand.SetActive(true);
 				if (wpnz < 15) {
 					wpnz++;
 					for (int i = 0; i < 10; i++) {
@@ -142,7 +144,7 @@ public class GenEnemies : MonoBehaviour {
 					GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Attributes>().Health--;
                     
 					Debug.Log ("player health: " + GameObject.FindGameObjectsWithTag ("Player") [0].GetComponent<Attributes> ().Health);
-				}
+				}*/
 
 			} //else if(Vector3.Distance (enemies.transform.position, target.position) < 4f){ 
 
