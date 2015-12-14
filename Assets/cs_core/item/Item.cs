@@ -44,7 +44,7 @@ public abstract class Item : MonoBehaviour{
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player"&&gameObject.transform.parent == null)
         {
             other.gameObject.GetComponent<PlayerInventory>().addItem(itemID, 1);
             Destroy(gameObject);

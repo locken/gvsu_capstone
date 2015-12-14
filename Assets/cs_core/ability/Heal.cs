@@ -15,6 +15,7 @@ public class Heal : Ability {
         cooldown = 20;
         magiccost = 60;
         self = gameObject.GetComponent<Attributes>();
+        timestamp = 0;
     }
 
     public override bool cast()
@@ -28,6 +29,7 @@ public class Heal : Ability {
                 else
                     self.Health = self.Health + damage;
                 timestamp = Time.time + cooldown;
+                Debug.Log("Heal cast");
                 return true;
             }
         }
