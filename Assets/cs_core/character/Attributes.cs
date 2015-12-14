@@ -150,7 +150,7 @@ public class Attributes : Character {
                // if (gameObject.tag == "Player")
                // {
                     //GameObject.Find("_Master").GetComponent<HUD>().IncreaseHealthBar();
-                //Debug.Log("fuck the navby");
+                
                 //}
             }
             if (Magic < 100)
