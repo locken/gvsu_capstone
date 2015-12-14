@@ -122,6 +122,7 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
+        tempCollider.isTrigger = true;
     }
 
     void GenerateArmor(int i, int j)
@@ -139,6 +140,7 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
+        tempCollider.isTrigger = true;
     }
 
     void GenerateConsumable(int i, int j)
@@ -173,6 +175,7 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
+        tempCollider.isTrigger = true;
     }
 
     void GenerateOther(int i, int j)
@@ -194,6 +197,7 @@ public class GenerateItems : MonoBehaviour
         }
         BoxCollider2D tempCollider = temp.AddComponent<BoxCollider2D>();
         tempCollider.transform.parent = temp.transform;
+        tempCollider.isTrigger = true;
     }
     // Update is called once per frame
     void Update()

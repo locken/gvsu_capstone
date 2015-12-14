@@ -9,6 +9,7 @@ public class player : MonoBehaviour {
     public SpriteRenderer playerSprite;
     public BoxCollider2D playerCollider;
     public Attributes plyrStats;
+    public PlayerInventory inv;
 
     //right hand variables
     public GameObject rightHand;
@@ -28,10 +29,11 @@ public class player : MonoBehaviour {
     private bool attack = false;
     private float wpnz = 0;
     private float wpnx = 18 / 24f;
-    
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start()
+    {
 
         //create player
         plyr = new GameObject();
@@ -46,16 +48,20 @@ public class player : MonoBehaviour {
         playerCollider = plyr.AddComponent<BoxCollider2D>();
         playerCollider.transform.parent = plyr.transform;
         plyrRb = plyr.AddComponent<Rigidbody2D>();
-        plyr.transform.localPosition = new Vector3(0,0,-1);
-		plyrRb.gravityScale = 0;
-		plyrRb.isKinematic = false;
-		plyrRb.drag = 10;
+        plyr.transform.localPosition = new Vector3(0, 0, -1);
+        plyrRb.gravityScale = 0;
+        plyrRb.isKinematic = false;
+        plyrRb.drag = 10;
         plyr.AddComponent<Fireball>();
         plyr.AddComponent<Heal>();
+
+        //need to set items colliders as triggers and give them an OnTriggerEnter2D that checks for Player tag
+        //and adds itself to inventory if true.
+        inv = plyr.AddComponent<PlayerInventory>();
         GameObject localMaster = GameObject.Find("Main Camera");
         //localMaster.AddComponent<CameraMovement>();
         localMaster.GetComponent<CameraMovement>().SetPlayer(plyr);
-        
+
 
         //add rightHand to player
         rightHand = new GameObject();

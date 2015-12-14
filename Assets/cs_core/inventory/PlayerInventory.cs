@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerInventory : MonoBehaviour {
 
-    public Inventory itemManager;
+    public Inventory itemManager = new Inventory();
     public List<playerItems> items = new List<playerItems>();
 
     void Start () {

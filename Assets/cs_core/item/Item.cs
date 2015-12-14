@@ -42,4 +42,13 @@ public abstract class Item : MonoBehaviour{
         return sr;
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerInventory>().addItem(itemID, 1);
+            Destroy(gameObject);
+        }
+    }
+
 }
