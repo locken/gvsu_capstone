@@ -144,7 +144,7 @@ public class Attributes : Character {
         {
             if (Health < 100)
             {
-                Debug.Log("fuck the navby");
+                
                 GameObject.Find("_Master").GetComponent<HUD>().IncreaseHealthBar();
                 Health++;
                // if (gameObject.tag == "Player")
